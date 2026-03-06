@@ -1,0 +1,46 @@
+{
+  "name": "Quotes — Professional Documents",
+  "short_name": "Quotes",
+  "description": "Create invoices, receipts and quotations in seconds. Snap a photo, let AI extract everything, share instantly.",
+  "start_url": "./app.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5f7fa",
+  "theme_color": "#0f1e35",
+  "categories": ["business", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "apple-touch-icon.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "New Quotation",
+      "short_name": "Quotation",
+      "url": "./app.html?open=quotation",
+      "icons": [{ "src": "icon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "New Invoice",
+      "short_name": "Invoice",
+      "url": "./app.html?open=invoice",
+      "icons": [{ "src": "icon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "New Receipt",
+      "short_name": "Receipt",
+      "url": "./app.html?open=receipt",
+      "icons": [{ "src": "icon.svg", "sizes": "any" }]
+    }
+  ]
+}
