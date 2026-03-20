@@ -151,11 +151,11 @@ footer a:hover{color:var(--t2);}
 </main>
 
 <footer>
-  Quotes by <a href="index.html">EML Tech Studio</a> &middot; emltechstudio@gmail.com
+  Quotes by <a href="index.html">EML Tech Studio</a> &middot; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="36535b5a4253555e454243525f5976515b575f5a1855595b">[email&#160;protected]</a>
 </footer>
 
-<script>
-if('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+if('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(()=>{});
 let dP=null;
 const ua=navigator.userAgent.toLowerCase();
 const isIOS=/iphone|ipad|ipod/.test(ua);
@@ -188,12 +188,4 @@ window.addEventListener('load',()=>{
   if(isIOS){showIOS();return;}
   setTimeout(()=>{
     if(!dP&&!isStandalone){
-      document.getElementById('android-section').style.display='block';
-      document.getElementById('install-btn').textContent='May already be installed';
-      document.getElementById('install-btn').disabled=true;
-    }
-  },2000);
-});
-</script>
-</body>
-</html>
+      document.getElementById(

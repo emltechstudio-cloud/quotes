@@ -666,7 +666,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
           <a href="https://wa.me/2348000000000" target="_blank" class="btn bo bsm" style="gap:6px;text-decoration:none">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>WhatsApp
           </a>
-          <a href="mailto:emltechstudio@gmail.com" target="_blank" class="btn bo bsm" style="gap:6px;text-decoration:none">
+          <a href="/cdn-cgi/l/email-protection#36535b5a4253555e454243525f5976515b575f5a1855595b" target="_blank" class="btn bo bsm" style="gap:6px;text-decoration:none">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Email
           </a>
         </div>
@@ -813,7 +813,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
 
 <div id="toast"></div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const BACKEND='https://emltechstudio-quote.hf.space';
 const SNAP_LIMITS={free:1,pro:2,premium:5};
 let P=JSON.parse(localStorage.getItem('qp')||'null');
@@ -825,7 +825,7 @@ let swReg=null;
 
 // SW + update check
 if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('service-worker.js').then(reg=>{
+  navigator.serviceWorker.register('sw.js').then(reg=>{
     swReg=reg;
     reg.addEventListener('updatefound',()=>{
       const nw=reg.installing;
@@ -1303,11 +1303,4 @@ if(keyParam&&P){
       const data=await res.json();
       if(res.ok){LIC={tier:data.tier,expiry:data.expiry,key:keyParam};localStorage.setItem('ql',JSON.stringify(LIC));initHome();toast(data.label+' plan activated!','ok');}
     }catch(e){}
-    history.replaceState(null,'',location.pathname);
-  })();
-}
-const openType=urlP.get('open');
-if(openType&&P)setTimeout(()=>openCreate(openType),300);
-</script>
-</body>
-</html>
+    history.replaceState
