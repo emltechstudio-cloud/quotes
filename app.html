@@ -21,6 +21,7 @@
   --dark:#0f1e35;--dark2:#1a3050;
   --green:#5ccc00;--gl:#edffd6;--gd:#3a8c00;
   --blue:#2563eb;--bl:#eff6ff;
+  --or:#ea580c;--orl:#fff7ed;
   --tx:#1a2535;--mu:#6b7d99;--mu2:#99aabb;
   --red:#e03c3c;
   --r:14px;--rs:9px;
@@ -30,16 +31,12 @@
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-family:var(--font);-webkit-font-smoothing:antialiased}
-
-/* ── SCREENS ── */
 .sc{position:fixed;inset:0;display:flex;flex-direction:column;background:var(--bg);
   opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;transform:translateY(10px);z-index:1}
 .sc.on{opacity:1;pointer-events:all;transform:translateY(0)}
 .sc.out{transform:translateY(-10px)}
 .scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:100px}
 .scroll::-webkit-scrollbar{display:none}
-
-/* ── TOPBAR ── */
 .bar{display:flex;align-items:center;justify-content:space-between;
   padding:calc(var(--sat) + 14px) 18px 14px;
   background:var(--surf);border-bottom:1px solid var(--bd);
@@ -50,20 +47,18 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
   cursor:pointer;transition:all .14s;flex-shrink:0}
 .ib:active{background:var(--bd2);transform:scale(.93)}
 .ib svg{width:17px;height:17px;stroke:var(--tx);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-
-/* ── BUTTONS ── */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;
   border-radius:var(--rs);font-family:var(--font);font-weight:700;font-size:.9rem;
   cursor:pointer;transition:all .14s;padding:13px 18px}
 .btn:active{transform:scale(.97)}
 .bp{background:var(--dark);color:#fff}.bp:hover{background:var(--dark2)}
 .bg{background:var(--green);color:#fff}.bg:hover{background:var(--gd)}
+.bbl{background:var(--blue);color:#fff}
+.bor{background:var(--or);color:#fff}
 .bo{background:transparent;color:var(--tx);border:1.5px solid var(--bd2)}.bo:hover{border-color:var(--dark)}
 .br{background:#fff0f0;color:var(--red);border:1.5px solid #fdd}
 .bf{width:100%}
 .bsm{padding:9px 14px;font-size:.82rem}
-
-/* ── INPUTS ── */
 .fi{margin-bottom:14px}
 .fi label{display:block;font-size:.7rem;font-family:var(--mono);color:var(--mu);
   text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;font-weight:500}
@@ -76,16 +71,21 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
 .fi select option{background:#fff}
 .fi input:focus,.fi select:focus,.fi textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.08)}
 .fi textarea{resize:none;line-height:1.55}
-
-/* ── MISC ── */
-.card{background:var(--surf);border:1.5px solid var(--bd);border-radius:var(--r);padding:18px;box-shadow:var(--sh)}
-.sec{font-size:.68rem;font-family:var(--mono);color:var(--mu);text-transform:uppercase;letter-spacing:1px;margin:22px 0 10px;font-weight:600}
-.badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:.65rem;font-weight:700;font-family:var(--mono);gap:4px}
+.sec{font-size:.68rem;font-family:var(--mono);color:var(--mu);text-transform:uppercase;
+  letter-spacing:1px;margin:22px 0 10px;font-weight:600}
+.badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;
+  font-size:.65rem;font-weight:700;font-family:var(--mono);gap:4px}
 .bg-g{background:var(--gl);color:var(--gd)}
 .bg-b{background:var(--bl);color:var(--blue)}
 .bg-w{background:#fff7ed;color:#c05c00}
-
-/* ════ ONBOARDING ════ */
+/* update banner */
+#update-banner{display:none;background:var(--dark);color:#fff;padding:10px 18px;
+  font-size:.78rem;font-family:var(--mono);align-items:center;justify-content:space-between;
+  gap:10px;flex-shrink:0}
+#update-banner.on{display:flex}
+#update-banner button{background:var(--green);color:#fff;border:none;border-radius:6px;
+  padding:6px 12px;font-family:var(--font);font-weight:700;font-size:.75rem;cursor:pointer}
+/* onboarding */
 #sc-ob{background:#fff}
 .ob-sc{height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .ob-sc::-webkit-scrollbar{display:none}
@@ -107,11 +107,12 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
 .lz img{width:100%;height:100%;object-fit:cover;display:none;position:absolute;inset:0}
 .lz input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
 .lz-t{font-size:.6rem;color:var(--mu2);margin-top:4px;font-family:var(--mono)}
-
-/* ════ HOME ════ */
+/* home */
 .hbar{display:flex;align-items:center;justify-content:space-between;
   padding:calc(var(--sat) + 16px) 20px 16px;background:var(--surf);border-bottom:1px solid var(--bd)}
-.hbiz{font-size:1rem;font-weight:800;color:var(--dark)}
+.hbiz{font-size:1rem;font-weight:800;color:var(--dark);display:flex;align-items:center;gap:6px}
+.crown{display:none;width:16px;height:16px}
+.crown.on{display:inline-block}
 .hsub{font-size:.75rem;color:var(--mu);margin-top:1px}
 .hbody{padding:20px 18px 0}
 .hhero{background:linear-gradient(135deg,var(--dark),var(--dark2));border-radius:20px;
@@ -122,23 +123,19 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
 .hhero p{font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.55;position:relative}
 .dlist{display:flex;flex-direction:column;gap:12px}
 .di{background:var(--surf);border:1.5px solid var(--bd);border-radius:var(--r);
-  padding:18px;display:flex;align-items:center;gap:16px;cursor:pointer;
-  transition:all .18s;box-shadow:var(--sh)}
+  padding:18px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:all .18s;box-shadow:var(--sh)}
 .di:active{transform:scale(.98);box-shadow:none}
 .dico{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .dico svg{stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;fill:none}
 .dinf h3{font-size:.98rem;font-weight:700;margin-bottom:3px}
 .dinf p{font-size:.77rem;color:var(--mu);line-height:1.45}
-.darr{color:var(--mu2)}
 .darr svg{stroke-width:2.5;stroke-linecap:round;fill:none}
-
-/* ════ DRAWER ════ */
+/* drawer */
 #drawer{position:fixed;inset:0;z-index:100;pointer-events:none}
 #drawer .drb{position:absolute;inset:0;background:rgba(15,30,53,.45);opacity:0;transition:opacity .28s;backdrop-filter:blur(3px)}
-#drawer .drp{position:absolute;left:0;top:0;bottom:0;width:85%;max-width:340px;
-  background:#fff;border-right:1px solid var(--bd);
-  transform:translateX(-100%);transition:transform .28s cubic-bezier(.4,0,.2,1);
-  display:flex;flex-direction:column;padding-top:var(--sat)}
+#drawer .drp{position:absolute;left:0;top:0;bottom:0;width:85%;max-width:340px;background:#fff;
+  border-right:1px solid var(--bd);transform:translateX(-100%);
+  transition:transform .28s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;padding-top:var(--sat)}
 #drawer.open{pointer-events:all}
 #drawer.open .drb{opacity:1}
 #drawer.open .drp{transform:translateX(0)}
@@ -147,18 +144,15 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
 .drl{flex:1;overflow-y:auto;padding:10px}
 .drl::-webkit-scrollbar{display:none}
 .dri{padding:13px;border-radius:var(--rs);border:1.5px solid var(--bd);margin-bottom:8px;cursor:pointer;transition:border-color .14s}
-.dri:active{border-color:var(--blue)}
 .drit{font-size:.62rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:.8px;color:var(--mu);margin-bottom:3px}
 .drin{font-size:.88rem;font-weight:700;margin-bottom:2px}
 .drim{font-size:.7rem;color:var(--mu)}
 .dre{text-align:center;padding:50px 20px;color:var(--mu);font-size:.83rem}
-
-/* ════ CREATE ════ */
+/* create */
 #sc-cr .bar{background:var(--surf)}
 .cbody{padding:0 18px}
-.sbox{border:2px dashed var(--bd2);border-radius:var(--r);padding:26px 18px;
-  text-align:center;cursor:pointer;position:relative;overflow:hidden;
-  transition:all .18s;background:var(--bg)}
+.sbox{border:2px dashed var(--bd2);border-radius:var(--r);padding:22px 18px;
+  text-align:center;cursor:pointer;position:relative;overflow:hidden;transition:all .18s;background:var(--bg)}
 .sbox:active,.sbox:hover{border-color:var(--dark);background:var(--surf)}
 .sbox input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
 .sbox h4{font-size:.92rem;font-weight:700;margin-bottom:4px}
@@ -166,26 +160,39 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
 .sbox-icon{width:40px;height:40px;border-radius:10px;background:var(--gl);
   display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
 .sbox-icon svg{width:20px;height:20px;stroke:var(--gd);stroke-width:1.8;stroke-linecap:round;fill:none}
+.snap-limit{display:inline-flex;align-items:center;gap:5px;background:var(--surf);
+  border:1px solid var(--bd);border-radius:20px;padding:4px 10px;
+  font-size:.65rem;font-family:var(--mono);color:var(--mu);margin-top:8px}
+.snap-limit.warn{background:#fff7ed;border-color:#fddcb5;color:#c05c00}
+.snap-limit.maxed{background:#fff0f0;border-color:#fdd;color:var(--red)}
 #snap-prev{width:100%;border-radius:10px;margin-top:12px;max-height:190px;object-fit:contain;display:none;border:1px solid var(--bd)}
 .aibar{display:none;padding:12px 14px;background:var(--gl);border-radius:var(--rs);
-  border:1.5px solid #b8eeaa;font-size:.8rem;color:var(--gd);font-family:var(--mono);gap:8px}
+  border:1.5px solid #b8eeaa;font-size:.8rem;color:var(--gd);font-family:var(--mono);gap:8px;margin-top:8px}
 .aibar.on{display:flex;align-items:center}
 @keyframes sp{to{transform:rotate(360deg)}}
 .spin{width:14px;height:14px;border:2px solid transparent;border-top-color:currentColor;
   border-radius:50%;animation:sp .7s linear infinite;flex-shrink:0}
-.iw{display:flex;flex-direction:column;gap:9px;margin-bottom:10px}
-.li{background:var(--surf);border:1.5px solid var(--bd);border-radius:var(--rs);padding:12px;position:relative}
-.lill{display:grid;grid-template-columns:1fr 52px 80px;gap:8px;
-  font-size:.6rem;font-family:var(--mono);color:var(--mu2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px}
-.lir{display:grid;grid-template-columns:1fr 52px 80px;gap:8px}
-.li input{background:transparent;border:none;border-bottom:1.5px solid var(--bd2);
-  border-radius:0;padding:5px 3px;font-size:.85rem;color:var(--tx);font-family:var(--font);outline:none;width:100%;transition:border-color .15s}
-.li input:focus{border-bottom-color:var(--blue)}
+/* items */
+.iw{display:flex;flex-direction:column;gap:12px;margin-bottom:10px}
+.li{background:var(--surf);border:1.5px solid var(--bd);border-radius:var(--rs);padding:13px;position:relative}
+.li textarea{width:100%;background:transparent;border:none;border-bottom:1.5px solid var(--bd2);
+  border-radius:0;padding:5px 3px;font-size:.88rem;color:var(--tx);font-family:var(--font);
+  outline:none;transition:border-color .15s;resize:none;line-height:1.5;min-height:48px}
+.li textarea:focus{border-bottom-color:var(--blue)}
+.li textarea::placeholder{color:var(--mu2)}
+.li-desc-label{font-size:.6rem;font-family:var(--mono);color:var(--mu2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px}
+.li-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.li-field{display:flex;flex-direction:column;gap:4px}
+.li-field label{font-size:.6rem;font-family:var(--mono);color:var(--mu2);text-transform:uppercase;letter-spacing:.6px}
+.li input{background:var(--bg);border:1.5px solid var(--bd);border-radius:6px;
+  padding:8px 10px;font-size:.88rem;color:var(--tx);font-family:var(--font);
+  outline:none;width:100%;transition:border-color .15s}
+.li input:focus{border-color:var(--blue)}
 .li input::placeholder{color:var(--mu2)}
-.litot{font-size:.75rem;color:var(--gd);font-family:var(--mono);margin-top:7px;text-align:right;font-weight:600}
-.lirm{position:absolute;top:9px;right:9px;width:20px;height:20px;border-radius:5px;
-  background:#fff0f0;border:none;color:var(--red);cursor:pointer;
-  display:flex;align-items:center;justify-content:center}
+.litot{font-size:.8rem;color:var(--gd);font-family:var(--mono);margin-top:8px;
+  text-align:right;font-weight:600;padding-top:8px;border-top:1px solid var(--bd)}
+.lirm{position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:6px;
+  background:#fff0f0;border:none;color:var(--red);cursor:pointer;display:flex;align-items:center;justify-content:center}
 .lirm svg{width:12px;height:12px;stroke:var(--red);stroke-width:2.5;stroke-linecap:round;fill:none}
 .tots{background:var(--surf);border:1.5px solid var(--bd);border-radius:var(--rs);padding:14px}
 .tr{display:flex;justify-content:space-between;font-size:.85rem;padding:3px 0}
@@ -196,17 +203,15 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
 .tplt{height:48px;border-radius:6px;margin-bottom:6px}
 .tpln{font-size:.63rem;font-family:var(--mono);color:var(--mu);font-weight:600}
 .sww{display:flex;gap:9px;flex-wrap:wrap}
-.sw{width:30px;height:30px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all .18s}
+.sw{width:30px;height:30px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all .18px}
 .sw.on{border-color:var(--dark);transform:scale(1.18)}
-
-/* ════ PREVIEW ════ */
+/* preview */
 #sc-pv .bar{background:var(--surf)}
 .pvw{padding:16px 18px;display:flex;justify-content:center}
 #doc-out{width:100%;max-width:480px;background:#fff;border-radius:14px;overflow:hidden;box-shadow:var(--shl)}
 .shbox{padding:0 18px;display:flex;flex-direction:column;gap:10px;margin-top:4px}
 .shrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-
-/* ════ IMAGE SHARE SCREEN ════ */
+/* image share */
 #sc-img{background:#000}
 #sc-img .bar{background:#000;border-bottom:1px solid #222}
 #sc-img .bar h2{color:#fff}
@@ -215,14 +220,42 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
 .img-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:16px;overflow:hidden}
 #shared-img{max-width:100%;max-height:100%;border-radius:12px;object-fit:contain}
 .img-actions{padding:16px 18px calc(var(--sab) + 16px);display:flex;gap:10px}
-
-/* ════ DOC TEMPLATES ════ */
+/* settings */
+#sc-st{background:var(--bg)}
+.st-body{padding:0 18px}
+.plan-card{border-radius:var(--r);padding:18px;margin-bottom:14px;border:1.5px solid var(--bd)}
+.plan-card.free{background:var(--surf)}
+.plan-card.pro{background:var(--bl);border-color:#bfdbfe}
+.plan-card.premium{background:var(--orl);border-color:#fed7aa}
+.plan-row{display:flex;align-items:center;justify-content:space-between}
+.plan-name{font-size:1rem;font-weight:800;display:flex;align-items:center;gap:6px}
+.plan-badge{font-size:.65rem;font-family:var(--mono);font-weight:700;padding:2px 8px;border-radius:20px}
+.plan-meta{font-size:.75rem;color:var(--mu);margin-top:4px;font-family:var(--mono)}
+.plan-snaps{font-size:.72rem;font-family:var(--mono);color:var(--mu);margin-top:6px}
+.key-wrap{background:var(--surf);border:1.5px solid var(--bd);border-radius:var(--r);padding:16px;margin-bottom:14px}
+.key-wrap h4{font-size:.85rem;font-weight:700;margin-bottom:4px}
+.key-wrap p{font-size:.75rem;color:var(--mu);margin-bottom:12px;font-family:var(--mono)}
+.key-row{display:flex;gap:8px}
+.key-row input{flex:1;background:var(--bg);border:1.5px solid var(--bd);border-radius:var(--rs);
+  padding:11px 13px;font-family:var(--mono);font-size:.82rem;color:var(--tx);outline:none;transition:border-color .15s}
+.key-row input:focus{border-color:var(--blue)}
+.up-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.up-card{background:var(--surf);border:1.5px solid var(--bd);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:10px}
+.up-card h4{font-size:.9rem;font-weight:800}
+.up-card ul{list-style:none;display:flex;flex-direction:column;gap:5px}
+.up-card ul li{font-size:.72rem;color:var(--mu);font-family:var(--mono);display:flex;align-items:center;gap:5px}
+.up-card ul li svg{width:10px;height:10px;stroke:var(--green);stroke-width:3;stroke-linecap:round;fill:none;flex-shrink:0}
+.up-btn{padding:9px;border-radius:var(--rs);font-family:var(--font);font-weight:700;font-size:.82rem;border:none;cursor:pointer;text-align:center;text-decoration:none;display:block;transition:all .15s}
+.prof-section{background:var(--surf);border:1.5px solid var(--bd);border-radius:var(--r);padding:18px;margin-bottom:14px}
+.prof-section h4{font-size:.88rem;font-weight:700;margin-bottom:14px}
+/* update card in settings */
+.update-card{background:var(--surf);border:1.5px solid var(--bd);border-radius:var(--r);padding:16px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.update-card-info h4{font-size:.88rem;font-weight:700;margin-bottom:3px}
+.update-card-info p{font-size:.72rem;color:var(--mu);font-family:var(--mono)}
+/* doc templates */
 .dt{font-family:'Plus Jakarta Sans',sans-serif;color:#1a2535;background:#fff}
-/* T0 Minimal */
 .t0t{padding:24px 24px 16px;border-bottom:3px solid}
 .t0r{display:flex;justify-content:space-between;align-items:flex-start}
-.t0l{width:44px;height:44px;border-radius:10px;object-fit:contain}
-.t0li{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.1rem;color:#fff}
 .t0bn{font-size:.95rem;font-weight:800;margin-top:10px}
 .t0bi{font-size:.67rem;color:#8a9ab0;line-height:1.6}
 .t0dt{font-size:1.4rem;font-weight:900;letter-spacing:-.5px;text-align:right}
@@ -232,16 +265,14 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
 .t0mv{font-size:.8rem;font-weight:700}
 .t0it{padding:14px 24px}
 .t0ih{display:grid;grid-template-columns:1fr 42px 74px 74px;gap:6px;font-size:.6rem;text-transform:uppercase;letter-spacing:.7px;color:#8a9ab0;border-bottom:1px solid #e8edf5;padding-bottom:6px;margin-bottom:6px;font-weight:600}
-.t0i{display:grid;grid-template-columns:1fr 42px 74px 74px;gap:6px;font-size:.79rem;padding:6px 0;border-bottom:1px solid #f0f4f8;align-items:center}
+.t0i{display:grid;grid-template-columns:1fr 42px 74px 74px;gap:6px;font-size:.79rem;padding:6px 0;border-bottom:1px solid #f0f4f8;align-items:start}
+.t0i-name{line-height:1.45;word-break:break-word}
 .t0to{margin-top:12px;display:flex;flex-direction:column;align-items:flex-end;gap:3px}
 .t0tr{display:flex;gap:32px;font-size:.79rem}
 .t0gr{font-size:.98rem;font-weight:900;margin-top:7px;padding:8px 12px;border-radius:7px;display:flex;gap:24px;color:#fff}
 .t0no{padding:10px 24px;background:#f8fafc;font-size:.74rem;color:#8a9ab0;border-top:1px solid #e8edf5}
 .t0wm{text-align:center;padding:9px;font-size:.58rem;font-family:'JetBrains Mono',monospace;color:#c0ccd8;letter-spacing:1px}
-/* T1 Card */
 .t1t{padding:24px;position:relative;color:#fff}
-.t1l{width:44px;height:44px;border-radius:10px;object-fit:contain;border:2px solid rgba(255,255,255,.25)}
-.t1li{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.1rem;border:2px solid rgba(255,255,255,.25)}
 .t1dt{font-size:1.3rem;font-weight:900;letter-spacing:-.5px;margin-top:12px}
 .t1dn{font-size:.67rem;font-family:'JetBrains Mono',monospace;color:rgba(255,255,255,.55);margin-top:2px}
 .t1bz{position:absolute;top:24px;right:24px;text-align:right}
@@ -252,17 +283,14 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
 .t1mv{font-size:.8rem;font-weight:700;color:#fff}
 .t1b{background:#fff;padding:18px 24px}
 .t1ih{display:grid;grid-template-columns:1fr 42px 74px 74px;gap:6px;font-size:.6rem;text-transform:uppercase;letter-spacing:.7px;color:#8a9ab0;border-bottom:1.5px solid #e8edf5;padding-bottom:6px;margin-bottom:6px;font-weight:600}
-.t1i{display:grid;grid-template-columns:1fr 42px 74px 74px;gap:6px;font-size:.79rem;padding:6px 8px;border-radius:5px;color:#1a2535}
+.t1i{display:grid;grid-template-columns:1fr 42px 74px 74px;gap:6px;font-size:.79rem;padding:6px 8px;border-radius:5px;color:#1a2535;align-items:start}
 .t1i:nth-child(odd){background:#f8fafc}
 .t1to{display:flex;flex-direction:column;align-items:flex-end;gap:3px;margin-top:12px}
 .t1tr{display:flex;gap:32px;font-size:.79rem}
 .t1gr{font-size:.98rem;font-weight:900;margin-top:7px;padding:8px 12px;border-radius:7px;display:flex;gap:24px;color:#fff}
 .t1no{margin-top:10px;font-size:.74rem;color:#8a9ab0;border-top:1px solid #e8edf5;padding-top:8px}
 .t1wm{text-align:center;padding:9px;font-size:.58rem;font-family:'JetBrains Mono',monospace;color:#c0ccd8;letter-spacing:1px}
-/* T2 Clean */
 .t2t{padding:24px;display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #f0f4f8}
-.t2l{width:44px;height:44px;border-radius:10px;object-fit:contain}
-.t2li{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.1rem;color:#fff}
 .t2bn{font-size:.9rem;font-weight:800;margin-top:8px}
 .t2bi{font-size:.65rem;color:#8a9ab0;line-height:1.55;margin-top:2px}
 .t2rt{text-align:right}
@@ -274,14 +302,13 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
 .t2st{height:3px;margin:0 24px;border-radius:2px}
 .t2it{padding:14px 24px}
 .t2ih{display:grid;grid-template-columns:1fr 42px 74px 74px;gap:6px;font-size:.6rem;text-transform:uppercase;letter-spacing:.7px;border-bottom:2px solid;padding-bottom:6px;margin-bottom:6px;font-weight:600}
-.t2i{display:grid;grid-template-columns:1fr 42px 74px 74px;gap:6px;font-size:.79rem;padding:6px 0;border-bottom:1px solid #f0f4f8;align-items:center}
+.t2i{display:grid;grid-template-columns:1fr 42px 74px 74px;gap:6px;font-size:.79rem;padding:6px 0;border-bottom:1px solid #f0f4f8;align-items:start}
 .t2to{display:flex;flex-direction:column;align-items:flex-end;gap:3px;margin-top:12px}
 .t2tr{display:flex;gap:32px;font-size:.79rem}
 .t2gr{font-size:.98rem;font-weight:900;margin-top:7px;padding:8px 12px;border-radius:7px;display:flex;gap:24px;color:#fff}
 .t2no{padding:10px 24px;font-size:.74rem;color:#8a9ab0;border-top:1px solid #f0f4f8}
 .t2wm{text-align:center;padding:9px;font-size:.58rem;font-family:'JetBrains Mono',monospace;color:#c0ccd8;letter-spacing:1px}
-
-/* ── TOAST ── */
+/* toast */
 #toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(14px);
   background:var(--dark);color:#fff;border-radius:10px;padding:11px 18px;
   font-size:.8rem;font-family:var(--mono);z-index:999;opacity:0;transition:all .25s;
@@ -293,7 +320,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
 </head>
 <body>
 
-<!-- ════ ONBOARDING ════ -->
+<!-- ONBOARDING -->
 <div id="sc-ob" class="sc on">
 <div class="ob-sc"><div class="ob-in">
   <div class="ob-hd">
@@ -311,7 +338,6 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
     <div class="ob-dot" id="d1"></div>
     <div class="ob-dot" id="d2"></div>
   </div>
-  <!-- Step 0 -->
   <div class="ob-step on" id="obs0">
     <div class="ob-t">Your Business</div>
     <div class="ob-s">Helps the AI understand your work and extract items correctly from photos.</div>
@@ -326,11 +352,10 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
         <div class="fi"><label>Business Name *</label><input type="text" id="ob-biz" placeholder="e.g. Adebayo Aluminum Works"></div>
       </div>
     </div>
-    <div class="fi"><label>Industry / Line of Work *</label><input type="text" id="ob-ind" placeholder="e.g. Aluminum fabrication, Tiling, Construction"></div>
-    <div class="fi"><label>Products &amp; Materials</label><input type="text" id="ob-mat" placeholder="e.g. aluminum sheets, cement blocks, tiles"></div>
+    <div class="fi"><label>Industry / Line of Work *</label><input type="text" id="ob-ind" placeholder="e.g. Aluminum fabrication, Tiling"></div>
+    <div class="fi"><label>Products &amp; Materials</label><input type="text" id="ob-mat" placeholder="e.g. aluminum sheets, cement blocks"></div>
     <button class="btn bp bf" onclick="obNext(0)">Continue</button>
   </div>
-  <!-- Step 1 -->
   <div class="ob-step" id="obs1">
     <div class="ob-t">Contact Details</div>
     <div class="ob-s">These appear on every document you create.</div>
@@ -340,54 +365,101 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
     <div class="fi"><label>Website (optional)</label><input type="text" id="ob-web" placeholder="www.yourbusiness.com"></div>
     <button class="btn bp bf" onclick="obNext(1)">Continue</button>
   </div>
-  <!-- Step 2 -->
   <div class="ob-step" id="obs2">
     <div class="ob-t">Country &amp; Currency</div>
     <div class="ob-s">Used in all your documents and by the AI when reading photos.</div>
-    <div class="fi">
-      <label>Country</label>
+    <div class="fi"><label>Country</label>
       <select id="ob-ctry">
-        <option value="Nigeria">Nigeria</option>
-        <option value="Ghana">Ghana</option>
-        <option value="Kenya">Kenya</option>
-        <option value="South Africa">South Africa</option>
-        <option value="United Kingdom">United Kingdom</option>
-        <option value="United States">United States</option>
-        <option value="Canada">Canada</option>
-        <option value="Germany">Germany</option>
-        <option value="UAE">UAE</option>
-        <option value="India">India</option>
-        <option value="Other">Other</option>
+        <option>Nigeria</option><option>Ghana</option><option>Kenya</option>
+        <option>Ethiopia</option><option>Tanzania</option><option>Uganda</option>
+        <option>Rwanda</option><option>Cameroon</option><option>Senegal</option>
+        <option>Ivory Coast</option><option>Egypt</option><option>Morocco</option>
+        <option>Algeria</option><option>Tunisia</option><option>Zambia</option>
+        <option>Zimbabwe</option><option>Botswana</option><option>Namibia</option>
+        <option>South Africa</option><option>United Kingdom</option>
+        <option>United States</option><option>Canada</option><option>Australia</option>
+        <option>New Zealand</option><option>Germany</option><option>France</option>
+        <option>Netherlands</option><option>Spain</option><option>Italy</option>
+        <option>Sweden</option><option>Norway</option><option>Denmark</option>
+        <option>Switzerland</option><option>UAE</option><option>Saudi Arabia</option>
+        <option>Qatar</option><option>Kuwait</option><option>Turkey</option>
+        <option>India</option><option>Pakistan</option><option>Bangladesh</option>
+        <option>China</option><option>Japan</option><option>South Korea</option>
+        <option>Singapore</option><option>Malaysia</option>
+        <option>Brazil</option><option>Mexico</option><option>Argentina</option>
+        <option>Other</option>
       </select>
     </div>
-    <div class="fi">
-      <label>Currency</label>
-      <select id="ob-cur">
-        <option value="₦">₦ — Nigerian Naira</option>
-        <option value="GH₵">GH₵ — Ghanaian Cedi</option>
-        <option value="KSh">KSh — Kenyan Shilling</option>
-        <option value="R">R — South African Rand</option>
-        <option value="£">£ — British Pound</option>
-        <option value="$">$ — US Dollar</option>
-        <option value="€">€ — Euro</option>
-        <option value="AED">AED — UAE Dirham</option>
-        <option value="₹">₹ — Indian Rupee</option>
+    <div class="fi"><label>Currency</label>
+      <select id="ob-cur" onchange="toggleCustomCur('ob-custom-cur',this.value)">
+        <option value="&#8358;">&#8358; &mdash; Nigerian Naira</option>
+        <option value="GH&#8373;">GH&#8373; &mdash; Ghanaian Cedi</option>
+        <option value="KSh">KSh &mdash; Kenyan Shilling</option>
+        <option value="USh">USh &mdash; Ugandan Shilling</option>
+        <option value="TSh">TSh &mdash; Tanzanian Shilling</option>
+        <option value="RWF">RWF &mdash; Rwandan Franc</option>
+        <option value="ETB">ETB &mdash; Ethiopian Birr</option>
+        <option value="XOF">XOF &mdash; West African CFA</option>
+        <option value="EGP">EGP &mdash; Egyptian Pound</option>
+        <option value="MAD">MAD &mdash; Moroccan Dirham</option>
+        <option value="DZD">DZD &mdash; Algerian Dinar</option>
+        <option value="TND">TND &mdash; Tunisian Dinar</option>
+        <option value="ZMW">ZMW &mdash; Zambian Kwacha</option>
+        <option value="BWP">BWP &mdash; Botswana Pula</option>
+        <option value="NAD">NAD &mdash; Namibian Dollar</option>
+        <option value="R">R &mdash; South African Rand</option>
+        <option value="&#163;">&#163; &mdash; British Pound</option>
+        <option value="$">$ &mdash; US Dollar</option>
+        <option value="CA$">CA$ &mdash; Canadian Dollar</option>
+        <option value="A$">A$ &mdash; Australian Dollar</option>
+        <option value="NZ$">NZ$ &mdash; New Zealand Dollar</option>
+        <option value="&#8364;">&#8364; &mdash; Euro</option>
+        <option value="CHF">CHF &mdash; Swiss Franc</option>
+        <option value="SEK">SEK &mdash; Swedish Krona</option>
+        <option value="NOK">NOK &mdash; Norwegian Krone</option>
+        <option value="DKK">DKK &mdash; Danish Krone</option>
+        <option value="AED">AED &mdash; UAE Dirham</option>
+        <option value="SAR">SAR &mdash; Saudi Riyal</option>
+        <option value="QAR">QAR &mdash; Qatari Riyal</option>
+        <option value="KWD">KWD &mdash; Kuwaiti Dinar</option>
+        <option value="TRY">TRY &mdash; Turkish Lira</option>
+        <option value="&#8377;">&#8377; &mdash; Indian Rupee</option>
+        <option value="PKR">PKR &mdash; Pakistani Rupee</option>
+        <option value="BDT">BDT &mdash; Bangladeshi Taka</option>
+        <option value="&#165;">&#165; &mdash; Chinese Yuan / Yen</option>
+        <option value="&#8361;">&#8361; &mdash; Korean Won</option>
+        <option value="SGD">SGD &mdash; Singapore Dollar</option>
+        <option value="MYR">MYR &mdash; Malaysian Ringgit</option>
+        <option value="BRL">BRL &mdash; Brazilian Real</option>
+        <option value="MXN">MXN &mdash; Mexican Peso</option>
+        <option value="ARS">ARS &mdash; Argentine Peso</option>
+        <option value="custom">Other &mdash; Enter manually</option>
       </select>
+    </div>
+    <div class="fi" id="ob-custom-cur" style="display:none">
+      <label>Your Currency Symbol / Code</label>
+      <input type="text" id="ob-cur-custom" placeholder="e.g. ZWL or Fr or Kz" maxlength="6">
     </div>
     <button class="btn bg bf" onclick="obDone()">Launch Quotes</button>
   </div>
 </div></div>
 </div>
 
-<!-- ════ HOME ════ -->
+<!-- HOME -->
 <div id="sc-ho" class="sc">
+  <div id="update-banner">
+    <span>A new version of Quotes is available</span>
+    <button onclick="doUpdate()">Update Now</button>
+  </div>
   <div class="hbar">
     <div>
-      <div class="hbiz" id="h-biz">Your Business</div>
-      <div class="hsub">What are we creating today?</div>
+      <div class="hbiz" id="h-biz">Your Business
+        <svg class="crown" id="crown" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div class="hsub" id="h-sub">Free Plan</div>
     </div>
     <div style="display:flex;gap:8px">
-      <div class="ib" onclick="openSettings()">
+      <div class="ib" onclick="show('sc-st')">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M6 20v-2a6 6 0 0112 0v2"/></svg>
       </div>
       <div class="ib" onclick="openDrawer()">
@@ -399,7 +471,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
     <div class="hbody">
       <div class="hhero">
         <h2>Create. Share. Get paid.</h2>
-        <p>Professional documents in seconds — type manually or snap a photo and let AI extract everything.</p>
+        <p>Professional documents in seconds &mdash; type manually or snap a photo and let AI extract everything.</p>
       </div>
       <div class="dlist">
         <div class="di" onclick="openCreate('quotation')">
@@ -430,7 +502,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
           </div>
           <div class="dinf" style="flex:1">
             <h3>Receipt</h3>
-            <p>Proof of payment. Snap or type after a completed transaction.</p>
+            <p>Proof of payment. Snap or type after a transaction.</p>
             <div style="margin-top:6px"><span class="badge bg-w"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>AI Snap</span></div>
           </div>
           <div class="darr"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
@@ -440,15 +512,13 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
   </div>
 </div>
 
-<!-- ════ DRAWER ════ -->
+<!-- DRAWER -->
 <div id="drawer">
   <div class="drb" onclick="closeDrawer()"></div>
   <div class="drp">
     <div class="drh">
       <h3>History</h3>
-      <div class="ib" onclick="closeDrawer()">
-        <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
-      </div>
+      <div class="ib" onclick="closeDrawer()"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></div>
     </div>
     <div class="drl" id="drl"><div class="dre">No documents saved yet.</div></div>
     <div style="padding:14px;border-top:1px solid var(--bd)">
@@ -457,12 +527,10 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
   </div>
 </div>
 
-<!-- ════ CREATE ════ -->
+<!-- CREATE -->
 <div id="sc-cr" class="sc">
   <div class="bar">
-    <div class="ib" onclick="goBack()">
-      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-    </div>
+    <div class="ib" onclick="goBack()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></div>
     <h2 id="cr-title">New Quotation</h2>
     <div style="width:38px"></div>
   </div>
@@ -471,35 +539,31 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
       <div class="sec">Snap to Extract with AI</div>
       <div class="sbox">
         <input type="file" accept="image/*" capture="environment" id="snap-in">
-        <div class="sbox-icon">
-          <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
-        </div>
+        <div class="sbox-icon"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
         <h4>Tap to snap or upload</h4>
-        <p>AI reads handwriting, prices and items</p>
+        <p>AI reads your handwriting, prices and items</p>
       </div>
+      <div style="text-align:center"><div class="snap-limit" id="snap-pill">0/1 AI Snaps used today</div></div>
       <img id="snap-prev" alt="preview">
       <div class="aibar" id="aibar"><div class="spin"></div><span>AI is reading your image...</span></div>
     </div>
-
     <div class="sec">Document Details</div>
     <div class="fi"><label>Client / Customer Name</label><input type="text" id="f-cl" placeholder="Who is this for?"></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
       <div class="fi"><label>Date</label><input type="date" id="f-dt"></div>
       <div class="fi"><label>Reference No.</label><input type="text" id="f-rf" placeholder="QT-001"></div>
     </div>
-
     <div class="sec">Line Items</div>
     <div class="iw" id="iw"></div>
     <button class="btn bo bsm bf" onclick="addItem()" style="margin-bottom:14px">+ Add Item</button>
-
     <div class="tots">
-      <div class="tr"><span>Subtotal</span><span id="t-sub">₦0.00</span></div>
-      <div class="tr" style="color:var(--mu)"><span>Tax (0%)</span><span>—</span></div>
-      <div class="tr grand"><span>TOTAL</span><span id="t-tot">₦0.00</span></div>
+      <div class="tr"><span>Subtotal</span><span id="t-sub">0.00</span></div>
+      <div class="tr" style="color:var(--mu)"><span>Tax (0%)</span><span>&mdash;</span></div>
+      <div class="tr grand"><span>TOTAL</span><span id="t-tot">0.00</span></div>
     </div>
-
-    <div class="fi" style="margin-top:14px"><label>Notes / Payment Terms</label><textarea id="f-no" rows="3" placeholder="Bank: GTB · 0123456789 · Thank you for your business!"></textarea></div>
-
+    <div class="fi" style="margin-top:14px"><label>Notes / Payment Terms</label>
+      <textarea id="f-no" rows="3" placeholder="Bank: GTB &middot; 0123456789 &middot; Thank you for your business!"></textarea>
+    </div>
     <div class="sec">Template Style</div>
     <div class="tplg">
       <div class="tplc on" onclick="selTpl(0,this)">
@@ -515,7 +579,6 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
         <div class="tpln">Clean</div>
       </div>
     </div>
-
     <div class="sec">Brand Color</div>
     <div class="sww">
       <div class="sw on" style="background:#0f1e35" onclick="selCol('#0f1e35',this)"></div>
@@ -526,82 +589,294 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
       <div class="sw" style="background:#7c3aed" onclick="selCol('#7c3aed',this)"></div>
       <div class="sw" style="background:#0891b2" onclick="selCol('#0891b2',this)"></div>
     </div>
-
     <div style="margin-top:28px;padding-bottom:20px">
       <button class="btn bp bf" onclick="toPreview()">Preview Document</button>
     </div>
   </div>
 </div>
 
-<!-- ════ PREVIEW ════ -->
+<!-- PREVIEW -->
 <div id="sc-pv" class="sc">
   <div class="bar">
-    <div class="ib" onclick="goBack()">
-      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-    </div>
+    <div class="ib" onclick="goBack()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></div>
     <h2>Preview</h2>
-    <div class="ib" onclick="saveDoc()">
-      <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg>
-    </div>
+    <div class="ib" onclick="saveDoc()"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg></div>
   </div>
   <div class="scroll" style="padding-bottom:120px">
     <div class="pvw"><div id="doc-out"></div></div>
     <div class="shbox">
       <div class="shrow">
         <button class="btn bp" onclick="goToImgScreen()">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-          Share Image
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Share Image
         </button>
         <button class="btn bo" onclick="shareText()">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><path d="M16 6l-4-4-4 4M12 2v13"/></svg>
-          Share Text
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><path d="M16 6l-4-4-4 4M12 2v13"/></svg>Share Text
         </button>
       </div>
       <button class="btn bg bf" onclick="dlPDF()">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M7 10l5 5 5-5M12 15V3"/></svg>
-        Download PDF
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M7 10l5 5 5-5M12 15V3"/></svg>Download PDF
       </button>
       <button class="btn bo bf" onclick="copyTxt()">Copy as Text</button>
     </div>
   </div>
 </div>
 
-<!-- ════ IMAGE SHARE SCREEN ════ -->
+<!-- IMAGE SHARE -->
 <div id="sc-img" class="sc">
   <div class="bar">
-    <div class="ib" onclick="goBack()">
-      <svg viewBox="0 0 24 24" stroke="#fff"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-    </div>
+    <div class="ib" onclick="goBack()"><svg viewBox="0 0 24 24" stroke="#fff"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></div>
     <h2>Share Image</h2>
     <div style="width:38px"></div>
   </div>
-  <div class="img-wrap">
-    <img id="shared-img" alt="document">
-  </div>
+  <div class="img-wrap"><img id="shared-img" alt="document"></div>
   <div class="img-actions">
-    <button class="btn bg bf" id="img-share-btn" onclick="nativeShareImg()">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-      Share
+    <button class="btn bg bf" onclick="nativeShareImg()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Share
     </button>
     <button class="btn bo bf" onclick="downloadImg()">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M7 10l5 5 5-5M12 15V3"/></svg>
-      Download
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M7 10l5 5 5-5M12 15V3"/></svg>Download
     </button>
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div id="sc-st" class="sc">
+  <div class="bar">
+    <div class="ib" onclick="goBack()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></div>
+    <h2>Settings</h2>
+    <div style="width:38px"></div>
+  </div>
+  <div class="scroll st-body">
+    <div class="sec">Your Plan</div>
+    <div class="plan-card" id="plan-card">
+      <div class="plan-row">
+        <div class="plan-name" id="plan-name">Free Plan</div>
+        <span class="plan-badge" id="plan-badge" style="background:#f1f5f9;color:#64748b">FREE</span>
+      </div>
+      <div class="plan-meta" id="plan-meta">Basic templates &middot; Watermark on documents</div>
+      <div class="plan-snaps" id="plan-snaps">AI Snaps: 1 per day</div>
+    </div>
+
+    <div id="key-section" style="display:none">
+      <div class="sec">Reactivate</div>
+      <div class="key-wrap">
+        <h4 id="key-section-title">Your plan has expired</h4>
+        <p>Purchase a new plan below, or contact us directly for manual activation or gifted access.</p>
+        <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+          <a href="https://wa.me/2348000000000" target="_blank" class="btn bo bsm" style="gap:6px;text-decoration:none">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>WhatsApp
+          </a>
+          <a href="mailto:emltechstudio@gmail.com" target="_blank" class="btn bo bsm" style="gap:6px;text-decoration:none">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Email
+          </a>
+        </div>
+        <p style="font-size:.7rem;color:var(--mu);font-family:var(--mono);margin-bottom:10px">Already have a key? Paste it below.</p>
+        <div class="key-row">
+          <input type="text" id="key-in" placeholder="Paste activation key">
+          <button class="btn bp bsm" onclick="verifyKey()">Activate</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">Upgrade Plan</div>
+    <div class="up-grid">
+      <div class="up-card">
+        <h4 style="color:var(--blue)">Pro</h4>
+        <ul>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>No watermark</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>More templates</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>2 AI Snaps/day</li>
+        </ul>
+        <a href="https://selar.com/271q02q156" target="_blank" class="up-btn" style="background:var(--bl);color:var(--blue)">See Plan</a>
+      </div>
+      <div class="up-card">
+        <h4 style="color:var(--or)">Premium</h4>
+        <ul>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Everything in Pro</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>All templates</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>5 AI Snaps/day</li>
+        </ul>
+        <a href="https://selar.com/077jw01q60" target="_blank" class="up-btn" style="background:var(--orl);color:var(--or)">See Plan</a>
+      </div>
+    </div>
+
+    <div class="sec">App Updates</div>
+    <div class="update-card" id="update-card">
+      <div class="update-card-info">
+        <h4 id="update-card-title">Quotes is up to date</h4>
+        <p id="update-card-sub">You are running the latest version.</p>
+      </div>
+      <button class="btn bp bsm" id="update-card-btn" onclick="checkForUpdate()" style="flex-shrink:0">Check</button>
+    </div>
+
+    <div class="sec">Business Profile</div>
+    <div class="prof-section">
+      <h4>Business Info</h4>
+      <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:14px">
+        <div class="lz" id="lz2">
+          <input type="file" accept="image/*" id="logo-in2">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#99aabb" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M12 8v8M8 12h8"/></svg>
+          <img id="logo-img2" alt="">
+          <div class="lz-t">Logo</div>
+        </div>
+        <div style="flex:1">
+          <div class="fi"><label>Business Name</label><input type="text" id="st-biz"></div>
+        </div>
+      </div>
+      <div class="fi"><label>Industry</label><input type="text" id="st-ind"></div>
+      <div class="fi"><label>Materials</label><input type="text" id="st-mat"></div>
+      <div class="fi"><label>Address</label><input type="text" id="st-addr"></div>
+      <div class="fi"><label>Phone</label><input type="tel" id="st-tel"></div>
+      <div class="fi"><label>Email</label><input type="email" id="st-mail"></div>
+      <div class="fi"><label>Website</label><input type="text" id="st-web"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="fi"><label>Country</label>
+          <select id="st-ctry">
+            <option>Nigeria</option><option>Ghana</option><option>Kenya</option>
+            <option>Ethiopia</option><option>Tanzania</option><option>Uganda</option>
+            <option>Rwanda</option><option>Cameroon</option><option>Senegal</option>
+            <option>Ivory Coast</option><option>Egypt</option><option>Morocco</option>
+            <option>Algeria</option><option>Tunisia</option><option>Zambia</option>
+            <option>Zimbabwe</option><option>Botswana</option><option>Namibia</option>
+            <option>South Africa</option><option>United Kingdom</option>
+            <option>United States</option><option>Canada</option><option>Australia</option>
+            <option>New Zealand</option><option>Germany</option><option>France</option>
+            <option>Netherlands</option><option>Spain</option><option>Italy</option>
+            <option>Sweden</option><option>Norway</option><option>Denmark</option>
+            <option>Switzerland</option><option>UAE</option><option>Saudi Arabia</option>
+            <option>Qatar</option><option>Kuwait</option><option>Turkey</option>
+            <option>India</option><option>Pakistan</option><option>Bangladesh</option>
+            <option>China</option><option>Japan</option><option>South Korea</option>
+            <option>Singapore</option><option>Malaysia</option>
+            <option>Brazil</option><option>Mexico</option><option>Argentina</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="fi"><label>Currency</label>
+          <select id="st-cur" onchange="toggleCustomCur('st-custom-cur',this.value)">
+            <option value="&#8358;">&#8358; Naira</option>
+            <option value="GH&#8373;">GH&#8373; Cedi</option>
+            <option value="KSh">KSh Shilling</option>
+            <option value="USh">USh Uganda</option>
+            <option value="TSh">TSh Tanzania</option>
+            <option value="RWF">RWF Rwanda</option>
+            <option value="ETB">ETB Ethiopia</option>
+            <option value="XOF">XOF CFA</option>
+            <option value="EGP">EGP Egypt</option>
+            <option value="MAD">MAD Morocco</option>
+            <option value="DZD">DZD Algeria</option>
+            <option value="TND">TND Tunisia</option>
+            <option value="ZMW">ZMW Zambia</option>
+            <option value="BWP">BWP Botswana</option>
+            <option value="NAD">NAD Namibia</option>
+            <option value="R">R Rand</option>
+            <option value="&#163;">&#163; Pound</option>
+            <option value="$">$ Dollar</option>
+            <option value="CA$">CA$ Canada</option>
+            <option value="A$">A$ Australia</option>
+            <option value="NZ$">NZ$ NZ</option>
+            <option value="&#8364;">&#8364; Euro</option>
+            <option value="CHF">CHF Swiss</option>
+            <option value="SEK">SEK Sweden</option>
+            <option value="NOK">NOK Norway</option>
+            <option value="DKK">DKK Denmark</option>
+            <option value="AED">AED UAE</option>
+            <option value="SAR">SAR Saudi</option>
+            <option value="QAR">QAR Qatar</option>
+            <option value="KWD">KWD Kuwait</option>
+            <option value="TRY">TRY Turkey</option>
+            <option value="&#8377;">&#8377; Rupee</option>
+            <option value="PKR">PKR Pakistan</option>
+            <option value="BDT">BDT Bangladesh</option>
+            <option value="&#165;">&#165; Yuan/Yen</option>
+            <option value="&#8361;">&#8361; Won</option>
+            <option value="SGD">SGD Singapore</option>
+            <option value="MYR">MYR Malaysia</option>
+            <option value="BRL">BRL Brazil</option>
+            <option value="MXN">MXN Mexico</option>
+            <option value="ARS">ARS Argentina</option>
+            <option value="custom">Other &mdash; manually</option>
+          </select>
+        </div>
+      </div>
+      <div class="fi" id="st-custom-cur" style="display:none">
+        <label>Your Currency Symbol / Code</label>
+        <input type="text" id="st-cur-custom" placeholder="e.g. ZWL or Fr or Kz" maxlength="6">
+      </div>
+      <button class="btn bp bf" onclick="saveProfile()">Save Profile</button>
+    </div>
+    <div style="padding-bottom:40px;text-align:center">
+      <p style="font-size:.72rem;color:var(--mu2);font-family:var(--mono)">Quotes v2.0 by EML Tech Studio</p>
+    </div>
   </div>
 </div>
 
 <div id="toast"></div>
 
 <script>
-const BACKEND = 'https://emltechstudio-quote.hf.space';
+const BACKEND='https://emltechstudio-quote.hf.space';
+const SNAP_LIMITS={free:1,pro:2,premium:5};
+let P=JSON.parse(localStorage.getItem('qp')||'null');
+let LIC=JSON.parse(localStorage.getItem('ql')||'null');
+let DB,imgBlob=null;
+let D={type:'quotation',tpl:0,color:'#0f1e35',items:[],client:'',date:'',ref:'',notes:''};
+let stack=[];
+let swReg=null;
 
-let P = JSON.parse(localStorage.getItem('qp')||'null');
-let DB, D = {type:'quotation',tpl:0,color:'#0f1e35',items:[],client:'',date:'',ref:'',notes:''};
-let stack = [];
-let imgBlob = null;
-
-// SW
-if('serviceWorker' in navigator) navigator.serviceWorker.register('service-worker.js');
+// SW + update check
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('service-worker.js').then(reg=>{
+    swReg=reg;
+    reg.addEventListener('updatefound',()=>{
+      const nw=reg.installing;
+      nw.addEventListener('statechange',()=>{
+        if(nw.state==='installed'&&navigator.serviceWorker.controller){
+          document.getElementById('update-banner').classList.add('on');
+          setUpdateCardState('update');
+        }
+      });
+    });
+    reg.update();
+  });
+}
+function doUpdate(){
+  if(swReg&&swReg.waiting)swReg.waiting.postMessage({type:'SKIP_WAITING'});
+  window.location.reload();
+}
+function setUpdateCardState(state){
+  const title=document.getElementById('update-card-title');
+  const sub=document.getElementById('update-card-sub');
+  const btn=document.getElementById('update-card-btn');
+  if(state==='update'){
+    title.textContent='Update available!';
+    sub.textContent='Tap to install the latest version now.';
+    btn.textContent='Update Now';
+    btn.className='btn bg bsm';
+    btn.onclick=doUpdate;
+  }else if(state==='checking'){
+    title.textContent='Checking for updates...';
+    sub.textContent='Please wait.';
+    btn.textContent='...';
+    btn.disabled=true;
+  }else{
+    title.textContent='Quotes is up to date';
+    sub.textContent='You are running the latest version.';
+    btn.textContent='Check';
+    btn.className='btn bp bsm';
+    btn.disabled=false;
+    btn.onclick=checkForUpdate;
+  }
+}
+function checkForUpdate(){
+  setUpdateCardState('checking');
+  if(!swReg){setUpdateCardState('current');return}
+  swReg.update().then(()=>{
+    setTimeout(()=>{
+      if(swReg.waiting){setUpdateCardState('update')}
+      else{setUpdateCardState('current');toast('Already on the latest version','ok')}
+    },2000);
+  }).catch(()=>{setUpdateCardState('current');toast('Could not check for updates','err')});
+}
 
 // IndexedDB
 (function(){
@@ -613,6 +888,32 @@ const dbSave=d=>new Promise((res,rej)=>{const tx=DB.transaction('docs','readwrit
 const dbAll=()=>new Promise((res,rej)=>{const tx=DB.transaction('docs','readonly');const r=tx.objectStore('docs').getAll();r.onsuccess=()=>res(r.result);r.onerror=rej});
 const dbClear=()=>new Promise((res,rej)=>{const tx=DB.transaction('docs','readwrite');tx.objectStore('docs').clear();tx.oncomplete=res;tx.onerror=rej});
 
+// Tier helpers
+function getTier(){
+  if(!LIC)return'free';
+  if(new Date()>new Date(LIC.expiry))return'free';
+  return LIC.tier;
+}
+function getSnapCount(){
+  const today=new Date().toISOString().split('T')[0];
+  const s=JSON.parse(localStorage.getItem('qsnap')||'{"date":"","count":0}');
+  return s.date!==today?0:s.count;
+}
+function incSnapCount(){
+  const today=new Date().toISOString().split('T')[0];
+  const s=JSON.parse(localStorage.getItem('qsnap')||'{"date":"","count":0}');
+  const count=(s.date===today?s.count:0)+1;
+  localStorage.setItem('qsnap',JSON.stringify({date:today,count}));
+  return count;
+}
+function canSnap(){return getSnapCount()<SNAP_LIMITS[getTier()]}
+function updateSnapPill(){
+  const tier=getTier();const used=getSnapCount();const limit=SNAP_LIMITS[tier];
+  const el=document.getElementById('snap-pill');if(!el)return;
+  el.textContent=used+'/'+limit+' AI Snaps used today';
+  el.className='snap-limit'+(used>=limit?' maxed':used>=limit-1?' warn':'');
+}
+
 // Navigation
 function show(id,push=true){
   const cur=document.querySelector('.sc.on');
@@ -622,6 +923,7 @@ function show(id,push=true){
   cur.classList.add('out');
   setTimeout(()=>cur.classList.remove('on','out'),200);
   nxt.classList.add('on');
+  if(id==='sc-st')populateSettings();
 }
 function goBack(){
   if(!stack.length)return;
@@ -633,20 +935,39 @@ function goBack(){
 history.pushState(null,'',location.href);
 window.onpopstate=()=>{history.pushState(null,'',location.href);if(stack.length)goBack()};
 
-// Onboarding
-let logoB64='';
-document.getElementById('logo-in').onchange=function(){
-  const f=this.files[0];if(!f)return;
-  const r=new FileReader();
-  r.onload=e=>{
-    logoB64=e.target.result;
-    const img=document.getElementById('logo-img');
-    img.src=logoB64;img.style.display='block';
-    document.querySelector('#lz svg').style.display='none';
-    document.querySelector('.lz-t').style.display='none';
+// Currency helpers
+function toggleCustomCur(containerId,val){
+  const el=document.getElementById(containerId);
+  if(el)el.style.display=val==='custom'?'block':'none';
+}
+function getSelectedCur(selectId,customId){
+  const sel=document.getElementById(selectId);
+  if(!sel)return'&#8358;';
+  if(sel.value==='custom'){
+    const c=document.getElementById(customId);
+    return(c&&c.value.trim())||'?';
+  }
+  return sel.value;
+}
+
+// Logo inputs
+let logoB64='',logoB642='';
+function setupLogoInput(inputId,imgId,b64setter){
+  document.getElementById(inputId).onchange=function(){
+    const f=this.files[0];if(!f)return;
+    const r=new FileReader();
+    r.onload=e=>{
+      b64setter(e.target.result);
+      const img=document.getElementById(imgId);
+      img.src=e.target.result;img.style.display='block';
+    };
+    r.readAsDataURL(f);
   };
-  r.readAsDataURL(f);
-};
+}
+setupLogoInput('logo-in','logo-img',v=>logoB64=v);
+setupLogoInput('logo-in2','logo-img2',v=>logoB642=v);
+
+// Onboarding
 function obNext(s){
   if(s===0&&(!document.getElementById('ob-biz').value.trim()||!document.getElementById('ob-ind').value.trim())){toast('Enter business name and industry','err');return}
   document.getElementById('obs'+s).classList.remove('on');
@@ -664,34 +985,21 @@ function obDone(){
     mail:document.getElementById('ob-mail').value.trim(),
     web:document.getElementById('ob-web').value.trim(),
     ctry:document.getElementById('ob-ctry').value,
-    cur:document.getElementById('ob-cur').value,
+    cur:getSelectedCur('ob-cur','ob-cur-custom'),
     logo:logoB64
   };
   localStorage.setItem('qp',JSON.stringify(P));
   initHome();show('sc-ho',false);
 }
-function openSettings(){
-  if(P){
-    document.getElementById('ob-biz').value=P.biz||'';
-    document.getElementById('ob-ind').value=P.ind||'';
-    document.getElementById('ob-mat').value=P.mat||'';
-    document.getElementById('ob-addr').value=P.addr||'';
-    document.getElementById('ob-tel').value=P.tel||'';
-    document.getElementById('ob-mail').value=P.mail||'';
-    document.getElementById('ob-web').value=P.web||'';
-    document.getElementById('ob-ctry').value=P.ctry||'Nigeria';
-    document.getElementById('ob-cur').value=P.cur||'₦';
-    if(P.logo){logoB64=P.logo;const img=document.getElementById('logo-img');img.src=P.logo;img.style.display='block'}
-    ['obs0','obs1','obs2'].forEach((id,i)=>{
-      document.getElementById(id).classList.toggle('on',i===0);
-      document.getElementById('d'+i).classList.toggle('on',i===0);
-    });
-  }
-  show('sc-ob');
-}
 
 // Home
-function initHome(){document.getElementById('h-biz').textContent=P?.biz||'Your Business'}
+function initHome(){
+  const biz=P&&P.biz?P.biz:'Your Business';
+  document.getElementById('h-biz').childNodes[0].textContent=biz+' ';
+  const tier=getTier();
+  document.getElementById('crown').classList.toggle('on',tier!=='free');
+  document.getElementById('h-sub').textContent=tier==='premium'?'Premium Plan':tier==='pro'?'Pro Plan':'Free Plan';
+}
 
 // Drawer
 function openDrawer(){loadHistory();document.getElementById('drawer').classList.add('open')}
@@ -699,12 +1007,13 @@ function closeDrawer(){document.getElementById('drawer').classList.remove('open'
 async function loadHistory(){
   const list=document.getElementById('drl');
   const docs=await dbAll();
-  if(!docs.length){list.innerHTML='<div class="dre">No documents yet. Create your first one!</div>';return}
+  if(!docs.length){list.innerHTML='<div class="dre">No documents yet.</div>';return}
+  const cur=P&&P.cur?P.cur:'';
   list.innerHTML=docs.slice().reverse().map(d=>`
     <div class="dri" onclick="loadDoc(${d.id})">
       <div class="drit">${d.type}</div>
       <div class="drin">${esc(d.client||'No client')}</div>
-      <div class="drim">${d.date||''} &middot; ${d.cur||''}${gtot(d.items||[]).toFixed(2)}</div>
+      <div class="drim">${d.date||''} &middot; ${d.cur||cur}${gtot(d.items||[]).toFixed(2)}</div>
     </div>`).join('');
 }
 async function loadDoc(id){
@@ -721,7 +1030,7 @@ function openCreate(type){
   D={type,tpl:0,color:'#0f1e35',items:[],client:'',date:new Date().toISOString().split('T')[0],ref:autoRef(type),notes:''};
   document.getElementById('cr-title').textContent='New '+cap(type);
   document.getElementById('snap-sec').style.display=type==='invoice'?'none':'block';
-  populateForm();show('sc-cr');
+  populateForm();updateSnapPill();show('sc-cr');
 }
 function autoRef(t){return(t==='invoice'?'INV':t==='receipt'?'REC':'QT')+'-'+String(Math.floor(Math.random()*9000)+1000)}
 function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
@@ -742,15 +1051,21 @@ function populateForm(){
 const iT=item=>((parseFloat(item.qty)||0)*(parseFloat(item.price)||0));
 const gtot=items=>items.reduce((s,i)=>s+iT(i),0);
 function renderItems(){
-  const cur=P?.cur||'₦';
+  const cur=P&&P.cur?P.cur:'';
   document.getElementById('iw').innerHTML=D.items.map((item,i)=>`
     <div class="li">
       <button class="lirm" onclick="rmItem(${i})"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
-      <div class="lill"><span>Description</span><span>Qty</span><span>Unit Price</span></div>
-      <div class="lir">
-        <input type="text" value="${esc(item.name)}" placeholder="Item description" oninput="upItem(${i},'name',this.value)">
-        <input type="number" value="${item.qty}" min="1" step="1" oninput="upItem(${i},'qty',this.value)">
-        <input type="number" value="${item.price}" min="0" step="0.01" placeholder="0.00" oninput="upItem(${i},'price',this.value)">
+      <div class="li-desc-label">Description</div>
+      <textarea rows="2" placeholder="Item description (can be multiple lines)" oninput="upItem(${i},'name',this.value)">${esc(item.name)}</textarea>
+      <div class="li-row">
+        <div class="li-field">
+          <label>Quantity</label>
+          <input type="number" value="${item.qty}" min="1" step="1" oninput="upItem(${i},'qty',this.value)" placeholder="1">
+        </div>
+        <div class="li-field">
+          <label>Unit Price</label>
+          <input type="number" value="${item.price||''}" min="0" step="0.01" oninput="upItem(${i},'price',this.value)" placeholder="0.00">
+        </div>
       </div>
       <div class="litot" id="lt${i}">${cur}${iT(item).toFixed(2)}</div>
     </div>`).join('');
@@ -760,11 +1075,12 @@ function rmItem(i){D.items.splice(i,1);renderItems();updateTotals()}
 function upItem(i,k,v){
   D.items[i][k]=v;
   const el=document.getElementById('lt'+i);
-  if(el)el.textContent=(P?.cur||'₦')+iT(D.items[i]).toFixed(2);
+  const cur=P&&P.cur?P.cur:'';
+  if(el)el.textContent=cur+iT(D.items[i]).toFixed(2);
   updateTotals();
 }
 function updateTotals(){
-  const cur=P?.cur||'₦';const t=gtot(D.items);
+  const cur=P&&P.cur?P.cur:'';const t=gtot(D.items);
   document.getElementById('t-sub').textContent=cur+t.toFixed(2);
   document.getElementById('t-tot').textContent=cur+t.toFixed(2);
 }
@@ -774,25 +1090,19 @@ function selCol(c,el){D.color=c;document.querySelectorAll('.sw').forEach(s=>s.cl
 // AI Snap
 document.getElementById('snap-in').onchange=async function(){
   const file=this.files[0];if(!file)return;
+  if(!canSnap()){toast('Daily AI Snap limit reached. Upgrade for more.','err');return}
   const r=new FileReader();r.onload=e=>{const p=document.getElementById('snap-prev');p.src=e.target.result;p.style.display='block'};r.readAsDataURL(file);
   document.getElementById('aibar').classList.add('on');
   try{
-    const b64=await f2b(file);
-    const sys=`You are a document assistant for "${P?.biz||'a business'}" in ${P?.ctry||'Nigeria'}.
-Industry: ${P?.ind||'general'}. Materials: ${P?.mat||'general'}.
-Currency: ${P?.cur||'₦'}. Extract items accurately from handwriting or print.
-Return ONLY valid JSON, no markdown, no explanation.`;
+    const b64=await f2b(file);const tier=getTier();
+    const sys='You are a document assistant for "'+(P&&P.biz?P.biz:'a business')+'" in '+(P&&P.ctry?P.ctry:'Nigeria')+'.\nIndustry: '+(P&&P.ind?P.ind:'general')+'. Materials: '+(P&&P.mat?P.mat:'general')+'.\nCurrency: '+(P&&P.cur?P.cur:'')+'. Extract items accurately from handwriting or print.\nReturn ONLY valid JSON, no markdown, no explanation.';
     const res=await fetch(BACKEND+'/generate',{
       method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        system_prompt:sys,
-        user_message:`Extract all items from this ${D.type} image. Return ONLY this JSON format:\n{"client":"","items":[{"name":"","qty":1,"price":0}],"notes":""}`,
-        image_base64:b64,mime_type:file.type,doc_type:D.type
-      })
+      body:JSON.stringify({system_prompt:sys,user_message:'Extract all items from this '+D.type+' image. Return ONLY this JSON:\n{"client":"","items":[{"name":"","qty":1,"price":0}],"notes":""}',image_base64:b64,mime_type:file.type,doc_type:D.type,tier})
     });
     const data=await res.json();
     if(!res.ok)throw new Error(data.detail||'AI request failed');
-    parseAI(data.result);toast('Items extracted','ok');
+    parseAI(data.result);incSnapCount();updateSnapPill();toast('Items extracted','ok');
   }catch(e){toast('AI: '+e.message,'err')}
   finally{document.getElementById('aibar').classList.remove('on')}
 };
@@ -813,125 +1123,55 @@ function toPreview(){
   D.date=document.getElementById('f-dt').value;
   D.ref=document.getElementById('f-rf').value;
   D.notes=document.getElementById('f-no').value;
-  D.cur=P?.cur||'₦';
+  D.cur=P&&P.cur?P.cur:'';
   renderDoc();show('sc-pv');
 }
 function renderDoc(){document.getElementById('doc-out').innerHTML=buildDoc()}
-
 function buildDoc(){
-  const p=P||{};const d=D;const c=d.color;const cur=d.cur||p.cur||'₦';
-  const logo=p.logo?`<img src="${p.logo}" class="t${d.tpl}l" alt="logo">`:`<div class="t${d.tpl}li" style="background:${c}">${(p.biz||'Q').charAt(0)}</div>`;
+  const p=P||{};const d=D;const c=d.color;const cur=d.cur||p.cur||'';
+  const tier=getTier();const showWM=tier==='free';
+  let logoHtml='';
+  if(p.logo){logoHtml='<img src="'+p.logo+'" class="tlogo" style="width:44px;height:44px;border-radius:10px;object-fit:contain" alt="logo">';}
+  else if(p.biz){logoHtml='<div style="font-weight:900;font-size:1rem;color:'+c+'">'+esc(p.biz)+'</div>';}
   const bi=[p.addr,p.tel,p.mail,p.web].filter(Boolean);
   const items=d.items.map(i=>({...i,tot:iT(i).toFixed(2),price:parseFloat(i.price||0).toFixed(2)}));
   const sub=gtot(d.items);
-  if(d.tpl===0)return tpl0(p,d,c,cur,logo,bi,items,sub);
-  if(d.tpl===1)return tpl1(p,d,c,cur,logo,bi,items,sub);
-  return tpl2(p,d,c,cur,logo,bi,items,sub);
+  if(d.tpl===0)return tpl0(p,d,c,cur,logoHtml,bi,items,sub,showWM);
+  if(d.tpl===1)return tpl1(p,d,c,cur,logoHtml,bi,items,sub,showWM);
+  return tpl2(p,d,c,cur,logoHtml,bi,items,sub,showWM);
+}
+function tpl0(p,d,c,cur,logo,bi,items,sub,wm){
+  return'<div class="dt"><div class="t0t" style="border-color:'+c+'25"><div class="t0r">'+logo+'<div><div class="t0dt" style="color:'+c+'">'+cap(d.type)+'</div><div class="t0dn">#'+esc(d.ref||'')+'</div></div></div>'+(bi.length?'<div class="t0bi" style="margin-top:6px">'+bi.join(' &middot; ')+'</div>':'')+'</div><div class="t0m"><div><div class="t0ml">Bill To</div><div class="t0mv">'+esc(d.client||'&mdash;')+'</div></div><div><div class="t0ml">Date</div><div class="t0mv">'+(d.date||'')+'</div></div></div><div class="t0it"><div class="t0ih"><span>Description</span><span style="text-align:center">Qty</span><span style="text-align:right">Unit</span><span style="text-align:right">Total</span></div>'+items.map(i=>'<div class="t0i"><span class="t0i-name">'+esc(i.name)+'</span><span style="text-align:center">'+i.qty+'</span><span style="text-align:right">'+cur+i.price+'</span><span style="text-align:right;font-weight:700">'+cur+i.tot+'</span></div>').join('')+'<div class="t0to"><div class="t0tr"><span style="color:#8a9ab0">Subtotal</span><span>'+cur+sub.toFixed(2)+'</span></div><div class="t0gr" style="background:'+c+'"><span>TOTAL</span><span>'+cur+sub.toFixed(2)+'</span></div></div></div>'+(d.notes?'<div class="t0no"><strong>Notes:</strong> '+esc(d.notes)+'</div>':'')+(wm?'<div class="t0wm">Made with Quotes &middot; quotes.emltechstudio.site</div>':'')+'</div>';
+}
+function tpl1(p,d,c,cur,logo,bi,items,sub,wm){
+  return'<div class="dt"><div class="t1t" style="background:linear-gradient(135deg,'+c+','+c+'aa)"><div class="t1bz"><div class="t1bn">'+(p.logo?'<img src="'+p.logo+'" style="height:32px;border-radius:6px;vertical-align:middle">':esc(p.biz||''))+'</div>'+(bi.length?'<div class="t1bi">'+bi.join('<br>')+'</div>':'')+'</div>'+logo+'<div class="t1dt">'+cap(d.type)+'</div><div class="t1dn">#'+esc(d.ref||'')+'</div><div class="t1me"><div><div class="t1ml">Bill To</div><div class="t1mv">'+esc(d.client||'&mdash;')+'</div></div><div><div class="t1ml">Date</div><div class="t1mv">'+(d.date||'')+'</div></div></div></div><div class="t1b"><div class="t1ih"><span>Description</span><span style="text-align:center">Qty</span><span style="text-align:right">Unit</span><span style="text-align:right">Total</span></div>'+items.map(i=>'<div class="t1i"><span class="t0i-name">'+esc(i.name)+'</span><span style="text-align:center">'+i.qty+'</span><span style="text-align:right">'+cur+i.price+'</span><span style="text-align:right;font-weight:700">'+cur+i.tot+'</span></div>').join('')+'<div class="t1to"><div class="t1tr"><span style="color:#8a9ab0">Subtotal</span><span>'+cur+sub.toFixed(2)+'</span></div><div class="t1gr" style="background:'+c+'"><span>TOTAL</span><span>'+cur+sub.toFixed(2)+'</span></div></div>'+(d.notes?'<div class="t1no"><strong>Notes:</strong> '+esc(d.notes)+'</div>':'')+(wm?'<div class="t1wm">Made with Quotes &middot; quotes.emltechstudio.site</div>':'')+'</div></div>';
+}
+function tpl2(p,d,c,cur,logo,bi,items,sub,wm){
+  return'<div class="dt"><div class="t2t"><div>'+logo+(bi.length?'<div class="t2bi">'+bi.join(' &middot; ')+'</div>':'')+'</div><div class="t2rt"><div class="t2dt" style="color:'+c+'">'+cap(d.type)+'</div><div class="t2dn">#'+esc(d.ref||'')+'</div></div></div><div class="t2st" style="background:'+c+'"></div><div class="t2me"><div><div class="t2ml">Bill To</div><div class="t2mv">'+esc(d.client||'&mdash;')+'</div></div><div><div class="t2ml">Date</div><div class="t2mv">'+(d.date||'')+'</div></div></div><div class="t2it"><div class="t2ih" style="color:'+c+';border-color:'+c+'"><span>Description</span><span style="text-align:center">Qty</span><span style="text-align:right">Unit</span><span style="text-align:right">Total</span></div>'+items.map(i=>'<div class="t2i"><span class="t0i-name">'+esc(i.name)+'</span><span style="text-align:center">'+i.qty+'</span><span style="text-align:right">'+cur+i.price+'</span><span style="text-align:right;font-weight:700">'+cur+i.tot+'</span></div>').join('')+'<div class="t2to"><div class="t2tr"><span style="color:#8a9ab0">Subtotal</span><span>'+cur+sub.toFixed(2)+'</span></div><div class="t2gr" style="background:'+c+'"><span>TOTAL</span><span>'+cur+sub.toFixed(2)+'</span></div></div></div>'+(d.notes?'<div class="t2no"><strong>Notes:</strong> '+esc(d.notes)+'</div>':'')+(wm?'<div class="t2wm">Made with Quotes &middot; quotes.emltechstudio.site</div>':'')+'</div>';
 }
 
-function tpl0(p,d,c,cur,logo,bi,items,sub){
-  return`<div class="dt">
-  <div class="t0t" style="border-color:${c}25">
-    <div class="t0r">${logo}<div><div class="t0bn">${esc(p.biz||'')}</div><div class="t0bi">${bi.join(' &middot; ')}</div></div></div>
-    <div class="t0r" style="margin-top:4px"><div></div><div><div class="t0dt" style="color:${c}">${cap(d.type)}</div><div class="t0dn">#${esc(d.ref||'')}</div></div></div>
-  </div>
-  <div class="t0m"><div><div class="t0ml">Bill To</div><div class="t0mv">${esc(d.client||'—')}</div></div><div><div class="t0ml">Date</div><div class="t0mv">${d.date||''}</div></div></div>
-  <div class="t0it">
-    <div class="t0ih"><span>Description</span><span>Qty</span><span>Unit</span><span>Total</span></div>
-    ${items.map(i=>`<div class="t0i"><span>${esc(i.name)}</span><span>${i.qty}</span><span>${cur}${i.price}</span><span style="font-weight:700">${cur}${i.tot}</span></div>`).join('')}
-    <div class="t0to">
-      <div class="t0tr"><span style="color:#8a9ab0">Subtotal</span><span>${cur}${sub.toFixed(2)}</span></div>
-      <div class="t0gr" style="background:${c}"><span>TOTAL</span><span>${cur}${sub.toFixed(2)}</span></div>
-    </div>
-  </div>
-  ${d.notes?`<div class="t0no"><strong>Notes:</strong> ${esc(d.notes)}</div>`:''}
-  <div class="t0wm">Made with Quotes &middot; quotes.afric.site</div>
-</div>`;
-}
-function tpl1(p,d,c,cur,logo,bi,items,sub){
-  return`<div class="dt">
-  <div class="t1t" style="background:linear-gradient(135deg,${c},${c}aa)">
-    <div class="t1bz"><div class="t1bn">${esc(p.biz||'')}</div><div class="t1bi">${bi.join('<br>')}</div></div>
-    ${logo}<div class="t1dt">${cap(d.type)}</div><div class="t1dn">#${esc(d.ref||'')}</div>
-    <div class="t1me"><div><div class="t1ml">Bill To</div><div class="t1mv">${esc(d.client||'—')}</div></div><div><div class="t1ml">Date</div><div class="t1mv">${d.date||''}</div></div></div>
-  </div>
-  <div class="t1b">
-    <div class="t1ih"><span>Description</span><span>Qty</span><span>Unit</span><span>Total</span></div>
-    ${items.map(i=>`<div class="t1i"><span>${esc(i.name)}</span><span>${i.qty}</span><span>${cur}${i.price}</span><span style="font-weight:700">${cur}${i.tot}</span></div>`).join('')}
-    <div class="t1to">
-      <div class="t1tr"><span style="color:#8a9ab0">Subtotal</span><span>${cur}${sub.toFixed(2)}</span></div>
-      <div class="t1gr" style="background:${c}"><span>TOTAL</span><span>${cur}${sub.toFixed(2)}</span></div>
-    </div>
-    ${d.notes?`<div class="t1no"><strong>Notes:</strong> ${esc(d.notes)}</div>`:''}
-    <div class="t1wm">Made with Quotes &middot; quotes.afric.site</div>
-  </div>
-</div>`;
-}
-function tpl2(p,d,c,cur,logo,bi,items,sub){
-  return`<div class="dt">
-  <div class="t2t">
-    <div>${logo}<div class="t2bn">${esc(p.biz||'')}</div><div class="t2bi">${bi.join(' &middot; ')}</div></div>
-    <div class="t2rt"><div class="t2dt" style="color:${c}">${cap(d.type)}</div><div class="t2dn">#${esc(d.ref||'')}</div></div>
-  </div>
-  <div class="t2st" style="background:${c}"></div>
-  <div class="t2me"><div><div class="t2ml">Bill To</div><div class="t2mv">${esc(d.client||'—')}</div></div><div><div class="t2ml">Date</div><div class="t2mv">${d.date||''}</div></div></div>
-  <div class="t2it">
-    <div class="t2ih" style="color:${c};border-color:${c}"><span>Description</span><span>Qty</span><span>Unit</span><span>Total</span></div>
-    ${items.map(i=>`<div class="t2i"><span>${esc(i.name)}</span><span>${i.qty}</span><span>${cur}${i.price}</span><span style="font-weight:700">${cur}${i.tot}</span></div>`).join('')}
-    <div class="t2to">
-      <div class="t2tr"><span style="color:#8a9ab0">Subtotal</span><span>${cur}${sub.toFixed(2)}</span></div>
-      <div class="t2gr" style="background:${c}"><span>TOTAL</span><span>${cur}${sub.toFixed(2)}</span></div>
-    </div>
-  </div>
-  ${d.notes?`<div class="t2no"><strong>Notes:</strong> ${esc(d.notes)}</div>`:''}
-  <div class="t2wm">Made with Quotes &middot; quotes.afric.site</div>
-</div>`;
-}
-
-// Image Share Screen
+// Share/PDF
 async function goToImgScreen(){
   toast('Generating image...');
   try{
-    const el=document.getElementById('doc-out');
-    const canvas=await html2canvas(el,{scale:2.5,useCORS:true,backgroundColor:'#ffffff',logging:false});
-    canvas.toBlob(blob=>{
-      imgBlob=blob;
-      const url=URL.createObjectURL(blob);
-      document.getElementById('shared-img').src=url;
-      show('sc-img');
-      toast('');
-    },'image/png');
+    const canvas=await html2canvas(document.getElementById('doc-out'),{scale:2.5,useCORS:true,backgroundColor:'#ffffff',logging:false});
+    canvas.toBlob(blob=>{imgBlob=blob;document.getElementById('shared-img').src=URL.createObjectURL(blob);show('sc-img');toast('');},'image/png');
   }catch(e){toast('Error: '+e.message,'err')}
 }
 async function nativeShareImg(){
   if(!imgBlob)return;
-  const file=new File([imgBlob],`${D.type}-${D.ref||'doc'}.png`,{type:'image/png'});
-  if(navigator.share&&navigator.canShare({files:[file]})){
-    await navigator.share({files:[file],title:cap(D.type)+' from '+( P?.biz||'Quotes')});
-  }else{
-    downloadImg();
-  }
+  const file=new File([imgBlob],(D.type||'doc')+'-'+(D.ref||'doc')+'.png',{type:'image/png'});
+  if(navigator.share&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:cap(D.type)+' from '+(P&&P.biz?P.biz:'Quotes')})}
+  else downloadImg();
 }
 function downloadImg(){
   if(!imgBlob)return;
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(imgBlob);
-  a.download=`${D.type}-${D.ref||'doc'}.png`;
-  a.click();
-  toast('Image saved','ok');
+  const a=document.createElement('a');a.href=URL.createObjectURL(imgBlob);
+  a.download=(D.type||'doc')+'-'+(D.ref||'doc')+'.png';a.click();toast('Image saved','ok');
 }
-
-// Text
 function buildTxt(){
-  const p=P||{};const d=D;const cur=d.cur||'₦';
-  return[
-    `===== ${cap(d.type).toUpperCase()} =====`,
-    p.biz||'',p.addr||'',p.tel||'',p.mail||'',
-    ``,`Ref: #${d.ref||''}  |  Date: ${d.date||''}`,`To: ${d.client||''}`,``,`--- Items ---`,
-    ...d.items.map(i=>`${i.name}  x${i.qty}  @${cur}${parseFloat(i.price).toFixed(2)}  =  ${cur}${iT(i).toFixed(2)}`),
-    ``,`TOTAL: ${cur}${gtot(d.items).toFixed(2)}`,
-    d.notes?`\nNotes: ${d.notes}`:'',``,`Made with Quotes (quotes.afric.site)`
-  ].join('\n');
+  const p=P||{};const d=D;const cur=d.cur||'';
+  return['===== '+cap(d.type).toUpperCase()+' =====',p.biz||'',p.addr||'',p.tel||'',p.mail||'','','Ref: #'+(d.ref||'')+'  |  Date: '+(d.date||''),'To: '+(d.client||''),'','--- Items ---',...d.items.map(i=>i.name+'  x'+i.qty+'  @'+cur+parseFloat(i.price).toFixed(2)+'  =  '+cur+iT(i).toFixed(2)),'','TOTAL: '+cur+gtot(d.items).toFixed(2),d.notes?'\nNotes: '+d.notes:'','','Made with Quotes (quotes.emltechstudio.site)'].join('\n');
 }
 async function shareText(){
   const txt=buildTxt();
@@ -939,33 +1179,104 @@ async function shareText(){
   else{await navigator.clipboard.writeText(txt);toast('Copied','ok')}
 }
 async function copyTxt(){await navigator.clipboard.writeText(buildTxt());toast('Copied to clipboard','ok')}
-
-// PDF — render to canvas then save
 async function dlPDF(){
   toast('Generating PDF...');
   try{
-    const el=document.getElementById('doc-out');
-    const canvas=await html2canvas(el,{scale:2.5,useCORS:true,backgroundColor:'#ffffff',logging:false});
+    const canvas=await html2canvas(document.getElementById('doc-out'),{scale:2.5,useCORS:true,backgroundColor:'#ffffff',logging:false});
     const{jsPDF}=window.jspdf;
     const pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
-    const pgW=pdf.internal.pageSize.getWidth();
-    const pgH=pdf.internal.pageSize.getHeight();
-    const imgW=pgW;
+    const pgW=pdf.internal.pageSize.getWidth();const pgH=pdf.internal.pageSize.getHeight();
     const imgH=(canvas.height*pgW)/canvas.width;
-    // If taller than page, scale to fit
-    const finalH=Math.min(imgH,pgH);
-    const finalW=imgH>pgH?(canvas.width*pgH)/canvas.height:pgW;
-    const xOff=(pgW-finalW)/2;
-    pdf.addImage(canvas.toDataURL('image/jpeg',0.95),'JPEG',xOff,0,finalW,finalH);
-    pdf.save(`${D.type}-${D.ref||'doc'}.pdf`);
-    toast('PDF saved','ok');
+    const finalH=Math.min(imgH,pgH);const finalW=imgH>pgH?(canvas.width*pgH)/canvas.height:pgW;
+    pdf.addImage(canvas.toDataURL('image/jpeg',.95),'JPEG',(pgW-finalW)/2,0,finalW,finalH);
+    pdf.save((D.type||'doc')+'-'+(D.ref||'doc')+'.pdf');toast('PDF saved','ok');
   }catch(e){toast('PDF error: '+e.message,'err')}
 }
-
-// Save
 async function saveDoc(){
   try{await dbSave({...D,savedAt:new Date().toISOString()});toast('Saved','ok')}
   catch(e){toast('Save failed','err')}
+}
+
+// Settings
+function populateSettings(){
+  if(!P)return;
+  document.getElementById('st-biz').value=P.biz||'';
+  document.getElementById('st-ind').value=P.ind||'';
+  document.getElementById('st-mat').value=P.mat||'';
+  document.getElementById('st-addr').value=P.addr||'';
+  document.getElementById('st-tel').value=P.tel||'';
+  document.getElementById('st-mail').value=P.mail||'';
+  document.getElementById('st-web').value=P.web||'';
+  document.getElementById('st-ctry').value=P.ctry||'Nigeria';
+  const curSel=document.getElementById('st-cur');
+  const known=[...curSel.options].map(o=>o.value).filter(v=>v!=='custom');
+  if(known.includes(P.cur||'')){curSel.value=P.cur||'\u20A6';document.getElementById('st-custom-cur').style.display='none';}
+  else{curSel.value='custom';document.getElementById('st-custom-cur').style.display='block';document.getElementById('st-cur-custom').value=P.cur||'';}
+  if(P.logo){const img=document.getElementById('logo-img2');img.src=P.logo;img.style.display='block';logoB642=P.logo;}
+  updatePlanCard();
+}
+function updatePlanCard(){
+  const tier=getTier();
+  const expired=LIC&&new Date()>new Date(LIC.expiry);
+  const card=document.getElementById('plan-card');
+  const name=document.getElementById('plan-name');
+  const badge=document.getElementById('plan-badge');
+  const meta=document.getElementById('plan-meta');
+  const snaps=document.getElementById('plan-snaps');
+  const ks=document.getElementById('key-section');
+  card.className='plan-card '+tier;
+  if(tier==='premium'){
+    name.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="#ea580c" stroke="#ea580c" stroke-width="1.5" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Premium Plan';
+    badge.style.cssText='background:#fff7ed;color:#ea580c';badge.textContent='PREMIUM';
+    meta.textContent='All templates \u00B7 No watermark \u00B7 Expires '+LIC.expiry;
+    snaps.textContent='AI Snaps: 5 per day';ks.style.display='none';
+  }else if(tier==='pro'){
+    name.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="#2563eb" stroke="#2563eb" stroke-width="1.5" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Pro Plan';
+    badge.style.cssText='background:#eff6ff;color:#2563eb';badge.textContent='PRO';
+    meta.textContent='More templates \u00B7 No watermark \u00B7 Expires '+LIC.expiry;
+    snaps.textContent='AI Snaps: 2 per day';ks.style.display='none';
+  }else if(expired){
+    card.className='plan-card free';
+    name.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Plan Expired';
+    badge.style.cssText='background:#fff0f0;color:#e03c3c';badge.textContent='EXPIRED';
+    meta.textContent='Your '+(LIC.tier==='premium'?'Premium':'Pro')+' plan expired on '+LIC.expiry;
+    snaps.textContent='AI Snaps: 1 per day (free limits)';
+    ks.style.display='block';
+    document.getElementById('key-section-title').textContent='Renew your plan';
+  }else{
+    name.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg> Free Plan';
+    badge.style.cssText='background:#f1f5f9;color:#64748b';badge.textContent='FREE';
+    meta.textContent='Basic templates \u00B7 Watermark on documents';
+    snaps.textContent='AI Snaps: 1 per day';ks.style.display='none';
+  }
+}
+async function verifyKey(){
+  const key=document.getElementById('key-in').value.trim();
+  if(!key){toast('Paste your activation key first','err');return}
+  try{
+    const res=await fetch(BACKEND+'/verify-key',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key,consume:false})});
+    const data=await res.json();
+    if(!res.ok)throw new Error(data.detail||'Invalid key');
+    LIC={tier:data.tier,expiry:data.expiry,key};
+    localStorage.setItem('ql',JSON.stringify(LIC));
+    document.getElementById('key-in').value='';
+    updatePlanCard();initHome();toast(data.label+' plan activated!','ok');
+  }catch(e){toast(e.message,'err')}
+}
+function saveProfile(){
+  P={...(P||{}),
+    biz:document.getElementById('st-biz').value.trim(),
+    ind:document.getElementById('st-ind').value.trim(),
+    mat:document.getElementById('st-mat').value.trim(),
+    addr:document.getElementById('st-addr').value.trim(),
+    tel:document.getElementById('st-tel').value.trim(),
+    mail:document.getElementById('st-mail').value.trim(),
+    web:document.getElementById('st-web').value.trim(),
+    ctry:document.getElementById('st-ctry').value,
+    cur:getSelectedCur('st-cur','st-cur-custom'),
+    logo:logoB642||((P&&P.logo)||'')
+  };
+  localStorage.setItem('qp',JSON.stringify(P));initHome();toast('Profile saved','ok');
 }
 
 // Toast
@@ -978,11 +1289,23 @@ function toast(msg,type=''){
 }
 
 // Init
-if(P){initHome();show('sc-ho',false)}
+if(P){initHome();show('sc-ho',false);}
 document.getElementById('f-dt').value=new Date().toISOString().split('T')[0];
 addItem();
 
+// Deep link key activation
 const urlP=new URLSearchParams(location.search);
+const keyParam=urlP.get('key');
+if(keyParam&&P){
+  (async()=>{
+    try{
+      const res=await fetch(BACKEND+'/verify-key',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:keyParam,consume:true})});
+      const data=await res.json();
+      if(res.ok){LIC={tier:data.tier,expiry:data.expiry,key:keyParam};localStorage.setItem('ql',JSON.stringify(LIC));initHome();toast(data.label+' plan activated!','ok');}
+    }catch(e){}
+    history.replaceState(null,'',location.pathname);
+  })();
+}
 const openType=urlP.get('open');
 if(openType&&P)setTimeout(()=>openCreate(openType),300);
 </script>
