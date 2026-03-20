@@ -1247,7 +1247,7 @@ function updatePlanCard(){
     name.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg> Free Plan';
     badge.style.cssText='background:#f1f5f9;color:#64748b';badge.textContent='FREE';
     meta.textContent='Basic templates \u00B7 Watermark on documents';
-    snaps.textContent='AI Snaps: 1 per day';ks.style.display='none';
+    snaps.textContent='AI Snaps: 1 per day';ks.style.display='block';document.getElementById('key-section-title').textContent='Have an activation key?';document.getElementById('key-section-sub').textContent='Paste your key below to activate Pro or Premium.';
   }
 }
 async function verifyKey(){
