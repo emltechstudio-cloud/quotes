@@ -183,9 +183,17 @@ window.addEventListener('load',()=>{
     document.getElementById('install-btn-wrap').style.display='none';
     document.getElementById('already-msg').style.display='flex';
     document.getElementById('install-card-title').textContent='Already installed!';
-    return;
-  }
-  if(isIOS){showIOS();return;}
-  setTimeout(()=>{
-    if(!dP&&!isStandalone){
-      document.getElementById(
+      return;
+    }
+    if(isIOS){showIOS();return;}
+    setTimeout(()=>{
+      if(!dP&&!isStandalone){
+        document.getElementById('android-section').style.display='block';
+        document.getElementById('install-btn').textContent='May already be installed';
+        document.getElementById('install-btn').disabled=true;
+      }
+    },2000);
+  });
+</script>
+</body>
+</html>

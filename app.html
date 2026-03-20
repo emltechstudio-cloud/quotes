@@ -1303,4 +1303,41 @@ if(keyParam&&P){
       const data=await res.json();
       if(res.ok){LIC={tier:data.tier,expiry:data.expiry,key:keyParam};localStorage.setItem('ql',JSON.stringify(LIC));initHome();toast(data.label+' plan activated!','ok');}
     }catch(e){}
-    history.replaceState
+    history.replaceState(null,'',location.pathname);
+  })();
+}
+const openType=urlP.get('open');
+if(openType&&P)setTimeout(()=>openCreate(openType),300);
+
+// Expose all onclick functions to window (prevents scope issues)
+window.obNext        = obNext;
+window.obDone        = obDone;
+window.openCreate    = openCreate;
+window.openDrawer    = openDrawer;
+window.closeDrawer   = closeDrawer;
+window.goBack        = goBack;
+window.addItem       = addItem;
+window.rmItem        = rmItem;
+window.upItem        = upItem;
+window.selTpl        = selTpl;
+window.selCol        = selCol;
+window.toPreview     = toPreview;
+window.goToImgScreen = goToImgScreen;
+window.nativeShareImg= nativeShareImg;
+window.downloadImg   = downloadImg;
+window.shareText     = shareText;
+window.copyTxt       = copyTxt;
+window.dlPDF         = dlPDF;
+window.saveDoc       = saveDoc;
+window.doUpdate      = doUpdate;
+window.verifyKey     = verifyKey;
+window.saveProfile   = saveProfile;
+window.clearHistory  = clearHistory;
+window.checkForUpdate= checkForUpdate;
+window.toggleCustomCur=toggleCustomCur;
+window.loadDoc       = loadDoc;
+window.openSettings  = openSettings;
+window.show          = show;
+</script>
+</body>
+</html>
