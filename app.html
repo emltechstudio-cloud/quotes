@@ -386,7 +386,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
           <div class="snap-plan pro"><h5 style="color:var(--blue)">Pro</h5><p>2 AI Snaps per day</p></div>
           <div class="snap-plan premium"><h5 style="color:var(--or)">Premium</h5><p>5 AI Snaps per day</p></div>
         </div>
-        <a href="https://selar.com/271q02q156" target="_blank" style="display:block;text-align:center;font-size:.75rem;font-family:var(--mono);color:var(--blue);margin-top:10px;text-decoration:none">See plans &#8594;</a>
+        <button type="button" onclick="startCheckout('pro')" style="display:block;width:100%;background:none;border:0;text-align:center;font-size:.75rem;font-family:var(--mono);color:var(--blue);margin-top:10px;text-decoration:none;cursor:pointer">Upgrade securely &#8594;</button>
       </div>
       <img id="snap-prev" alt="">
       <div class="aibar" id="aibar"><div class="spin"></div><span>AI is reading your image...</span></div>
@@ -495,9 +495,9 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
       <div class="plan-snaps" id="plan-snaps">AI Snaps: 1 per day</div>
     </div>
     <div class="key-wrap" id="key-section">
-      <h4 id="key-section-title">Have an activation key?</h4>
-      <p id="key-section-sub">Paste your key to unlock Pro or Premium.</p>
-      <div class="key-row"><input type="text" id="key-in" placeholder="Paste activation key"><button class="btn bp bsm" onclick="verifyKey()">Activate</button></div>
+      <h4 id="key-section-title">Upgrade securely</h4>
+      <p id="key-section-sub">EML Checkout creates a one-hour payment intent before redirecting you to the provider.</p>
+      <div class="key-row"><button class="btn bp bsm" type="button" onclick="startCheckout('pro')">Upgrade to Pro</button><button class="btn bsm" type="button" onclick="startCheckout('premium')">Upgrade to Premium</button></div>
     </div>
     <div class="sec">Upgrade Plan</div>
     <div class="up-grid">
@@ -511,7 +511,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
           <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Custom title</li>
           <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Due date</li>
         </ul>
-        <a href="https://selar.com/271q02q156" target="_blank" class="up-btn" style="background:var(--bl);color:var(--blue)">See Plan &#8594;</a>
+        <button type="button" onclick="startCheckout('pro')" class="up-btn" style="background:var(--bl);color:var(--blue);border:0;cursor:pointer">Start Checkout &#8594;</button>
       </div>
       <div class="up-card featured">
         <div class="up-card-tag">Best</div>
@@ -524,7 +524,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
           <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Bank details block</li>
           <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Signature &amp; PAID stamp</li>
         </ul>
-        <a href="https://selar.com/077jw01q60" target="_blank" class="up-btn" style="background:var(--orl);color:var(--or)">See Plan &#8594;</a>
+        <button type="button" onclick="startCheckout('premium')" class="up-btn" style="background:var(--orl);color:var(--or);border:0;cursor:pointer">Start Checkout &#8594;</button>
       </div>
     </div>
     <div class="sec">Contact Us</div>
@@ -569,6 +569,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const BACKEND='https://emltechstudio-quote.hf.space';
+const CHECKOUT_API='https://emltechstudio-myshub-api.hf.space/v1/checkout';
 const SNAP_LIMITS={free:1,pro:2,premium:5};
 
 let P=JSON.parse(localStorage.getItem('qp')||'null');
@@ -1329,28 +1330,62 @@ function updatePlanCard(){
     badge.style.cssText='background:#fff0f0;color:#e03c3c';badge.textContent='EXPIRED';
     meta.textContent='Your '+(LIC.tier==='premium'?'Premium':'Pro')+' plan expired on '+LIC.expiry;
     snaps.textContent='AI Snaps: 1 per day';
-    ks.style.display='block';kt.textContent='Renew your plan';ksub.textContent='Purchase below or contact us.';
+    ks.style.display='block';kt.textContent='Renew securely';ksub.textContent='Start a new EML Checkout intent to renew your plan.';
   }else{
     card.className='plan-card';name.textContent='Free Plan';
     badge.style.cssText='background:#f1f5f9;color:#64748b';badge.textContent='FREE';
     meta.textContent='3 templates \u00b7 Watermark on documents';
     snaps.textContent='AI Snaps: 1 per day';
-    ks.style.display='block';kt.textContent='Have an activation key?';ksub.textContent='Paste your key to unlock Pro or Premium.';
+    ks.style.display='block';kt.textContent='Upgrade securely';ksub.textContent='Use EML Checkout to unlock Pro or Premium.';
   }
 }
-async function verifyKey(){
-  var key=document.getElementById('key-in').value.trim();
-  if(!key){toast('Paste your activation key first','err');return;}
+function checkoutSubject(){
+  var subject=localStorage.getItem('quotes_subject');
+  if(!subject){subject='quotes_'+(crypto.randomUUID?crypto.randomUUID():Date.now()+'_'+Math.random().toString(36).slice(2));localStorage.setItem('quotes_subject',subject);}
+  return subject;
+}
+async function startCheckout(plan){
   try{
-    var res=await fetch(BACKEND+'/verify-key',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:key})});
+    var res=await fetch(CHECKOUT_API+'/intents',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({app_id:'quotes',plan_id:plan,subject:checkoutSubject(),return_url:location.origin+location.pathname,metadata:{source:'quotes_web'}})});
     var data=await res.json();
-    if(!res.ok)throw new Error(data.detail||'Invalid key');
-    LIC={tier:data.tier,expiry:data.expiry,key:key};
-    localStorage.setItem('ql',JSON.stringify(LIC));
-    document.getElementById('key-in').value='';
-    updatePlanCard();initHome();toast(data.label+' plan activated!','ok');
+    if(!res.ok)throw new Error(data.detail||'Could not create checkout intent');
+    if(!data.checkout_url)throw new Error('Checkout provider is not configured yet');
+    localStorage.setItem('quotes_pending_intent',JSON.stringify({intent_id:data.intent_id,plan_id:plan,subject:checkoutSubject(),created_at:Date.now()}));
+    window.location.href=data.checkout_url;
   }catch(e){toast(e.message,'err');}
 }
+async function refreshCheckoutEntitlement(){
+  try{
+    var subject=checkoutSubject();
+    var res=await fetch(CHECKOUT_API+'/entitlements/check?app_id=quotes&subject='+encodeURIComponent(subject));
+    var data=await res.json();
+    if(!res.ok||!data.active)return false;
+    LIC={tier:data.plan_id,expiry:data.expires_at,source:'eml-checkout'};
+    localStorage.setItem('ql',JSON.stringify(LIC));
+    updatePlanCard();initHome();
+    return true;
+  }catch(e){return false;}
+}
+async function resumeCheckout(){
+  var raw=localStorage.getItem('quotes_pending_intent');
+  if(!raw){await refreshCheckoutEntitlement();return;}
+  try{
+    var pending=JSON.parse(raw);
+    var res=await fetch(CHECKOUT_API+'/intents/'+encodeURIComponent(pending.intent_id));
+    var data=await res.json();
+    if(data.status==='paid'){
+      localStorage.removeItem('quotes_pending_intent');
+      await refreshCheckoutEntitlement();
+      toast('Payment confirmed. Your plan is active.','ok');
+    }else if(data.status==='expired'||data.status==='failed'){
+      localStorage.removeItem('quotes_pending_intent');
+      toast('Checkout '+data.status+'. You can start again.','err');
+    }else{
+      toast('Payment is still being confirmed.','');
+    }
+  }catch(e){await refreshCheckoutEntitlement();}
+}
+function verifyKey(){toast('Activation keys have been replaced by secure EML Checkout.','err');}
 function populateSettings(){
   if(!P)return;
   document.getElementById('st-biz').value=P.biz||'';
@@ -1406,17 +1441,7 @@ document.getElementById('f-dt').value=new Date().toISOString().split('T')[0];
 addItem();
 
 var urlP=new URLSearchParams(location.search);
-var keyParam=urlP.get('key');
-if(keyParam&&P){
-  (async function(){
-    try{
-      var res=await fetch(BACKEND+'/verify-key',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:keyParam,consume:true})});
-      var data=await res.json();
-      if(res.ok){LIC={tier:data.tier,expiry:data.expiry,key:keyParam};localStorage.setItem('ql',JSON.stringify(LIC));initHome();toast(data.label+' plan activated!','ok');}
-    }catch(e){}
-    history.replaceState(null,'',location.pathname);
-  })();
-}
+if(P){resumeCheckout();}
 var openType=urlP.get('open');
 if(openType&&P)setTimeout(function(){openCreate(openType);},300);
 
@@ -1428,7 +1453,7 @@ window.selCol=selCol;window.toPreview=toPreview;
 window.goToImgScreen=goToImgScreen;window.nativeShareImg=nativeShareImg;
 window.downloadImg=downloadImg;window.shareText=shareText;window.copyTxt=copyTxt;
 window.dlPDF=dlPDF;window.saveDoc=saveDoc;window.doUpdate=doUpdate;
-window.verifyKey=verifyKey;window.saveProfile=saveProfile;window.clearHistory=clearHistory;
+window.verifyKey=verifyKey;window.startCheckout=startCheckout;window.resumeCheckout=resumeCheckout;window.saveProfile=saveProfile;window.clearHistory=clearHistory;
 window.checkForUpdate=checkForUpdate;window.toggleCustomCur=toggleCustomCur;
 window.updateLogoSizePreview=updateLogoSizePreview;window.openCustomColor=openCustomColor;window.loadDoc=loadDoc;
 </script>
