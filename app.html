@@ -1346,7 +1346,9 @@ function checkoutSubject(){
 }
 async function startCheckout(plan){
   try{
-    var res=await fetch(CHECKOUT_API+'/intents',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({app_id:'quotes',plan_id:plan,subject:checkoutSubject(),return_url:location.origin+location.pathname,metadata:{source:'quotes_web'}})});
+    var idemKey=localStorage.getItem('quotes_checkout_idem_'+plan);
+    if(!idemKey){idemKey='quotes_'+plan+'_'+(crypto.randomUUID?crypto.randomUUID():Date.now()+'_'+Math.random().toString(36).slice(2));localStorage.setItem('quotes_checkout_idem_'+plan,idemKey);}
+    var res=await fetch(CHECKOUT_API+'/intents',{method:'POST',headers:{'Content-Type':'application/json','X-Idempotency-Key':idemKey},body:JSON.stringify({app_id:'quotes',plan_id:plan,subject:checkoutSubject(),return_url:location.origin+location.pathname,metadata:{source:'quotes_web'}})});
     var data=await res.json();
     if(!res.ok)throw new Error(data.detail||'Could not create checkout intent');
     if(!data.checkout_url)throw new Error('Checkout provider is not configured yet');
