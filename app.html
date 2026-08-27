@@ -497,7 +497,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-
     <div class="key-wrap" id="key-section">
       <h4 id="key-section-title">Upgrade securely</h4>
       <p id="key-section-sub">EML Checkout creates a one-hour payment intent before redirecting you to the provider.</p>
-      <div class="key-row"><button class="btn bp bsm" type="button" onclick="startCheckout('pro')">Upgrade to Pro</button><button class="btn bsm" type="button" onclick="startCheckout('premium')">Upgrade to Premium</button></div>
+      <div class="key-row"><button class="btn bp bsm" type="button" onclick="startCheckout('pro')">Upgrade to Pro</button><button class="btn bsm" type="button" onclick="startCheckout('premium')">Upgrade to Premium</button></div><div class="key-row" style="margin-top:8px"><input type="text" id="manual-key-in" placeholder="Team-issued activation key"><button class="btn bo bsm" type="button" onclick="verifyKey()">Use key</button></div>
     </div>
     <div class="sec">Upgrade Plan</div>
     <div class="up-grid">
@@ -1387,7 +1387,16 @@ async function resumeCheckout(){
     }
   }catch(e){await refreshCheckoutEntitlement();}
 }
-function verifyKey(){toast('Activation keys have been replaced by secure EML Checkout.','err');}
+async function verifyKey(){
+  var input=document.getElementById('manual-key-in');var key=input&&input.value.trim();
+  if(!key){toast('Paste your activation key first','err');return;}
+  try{
+    var res=await fetch(CHECKOUT_API+'/keys/redeem',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:key,app_id:'quotes',subject:checkoutSubject()})});
+    var data=await res.json();if(!res.ok)throw new Error(data.detail||'Invalid or expired activation key');
+    LIC={tier:data.plan_id,expiry:data.expires_at,source:'team-issued-key'};localStorage.setItem('ql',JSON.stringify(LIC));
+    input.value='';updatePlanCard();initHome();toast(data.plan_id.toUpperCase()+' plan activated','ok');
+  }catch(e){toast(e.message,'err');}
+}
 function populateSettings(){
   if(!P)return;
   document.getElementById('st-biz').value=P.biz||'';
