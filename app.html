@@ -1455,6 +1455,8 @@ var urlP=new URLSearchParams(location.search);
 if(P){resumeCheckout();}
 var openType=urlP.get('open');
 if(openType&&P)setTimeout(function(){openCreate(openType);},300);
+var upgradePlan=urlP.get('upgrade');
+if(upgradePlan==='pro'||upgradePlan==='premium')setTimeout(function(){startCheckout(upgradePlan);},250);
 
 // Window exports
 window.obNext=obNext;window.obDone=obDone;window.openCreate=openCreate;
