@@ -1340,15 +1340,25 @@ function updatePlanCard(){
   }
 }
 function checkoutSubject(){
-  var subject=localStorage.getItem('quotes_subject');
-  if(!subject){subject='quotes_'+(crypto.randomUUID?crypto.randomUUID():Date.now()+'_'+Math.random().toString(36).slice(2));localStorage.setItem('quotes_subject',subject);}
-  return subject;
+  return (localStorage.getItem('quotes_checkout_email')||'').trim().toLowerCase();
+}
+function checkoutEmail(){
+  var email=checkoutSubject();
+  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    email=window.prompt('Enter your email before continuing to payment:','');
+    email=(email||'').trim().toLowerCase();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){toast('Enter a valid email address','err');return '';}
+    localStorage.setItem('quotes_checkout_email',email);
+  }
+  return email;
 }
 async function startCheckout(plan){
   try{
+    var email=checkoutEmail();if(!email)return;
     var idemKey=localStorage.getItem('quotes_checkout_idem_'+plan);
     if(!idemKey){idemKey='quotes_'+plan+'_'+(crypto.randomUUID?crypto.randomUUID():Date.now()+'_'+Math.random().toString(36).slice(2));localStorage.setItem('quotes_checkout_idem_'+plan,idemKey);}
-    var res=await fetch(CHECKOUT_API+'/intents',{method:'POST',headers:{'Content-Type':'application/json','X-Idempotency-Key':idemKey},body:JSON.stringify({app_id:'quotes',plan_id:plan,subject:checkoutSubject(),return_url:location.origin+location.pathname,metadata:{source:'quotes_web'}})});
+    var returnPath=plan==='premium'?'/checkout/return/premium':'/checkout/return/pro';
+    var res=await fetch(CHECKOUT_API+'/intents',{method:'POST',headers:{'Content-Type':'application/json','X-Idempotency-Key':idemKey},body:JSON.stringify({app_id:'quotes',plan_id:plan,subject:email,return_url:CHECKOUT_API.replace(/\/checkout$/,'')+returnPath,metadata:{source:'quotes_web',email:email}})});
     var data=await res.json();
     if(!res.ok)throw new Error(data.detail||'Could not create checkout intent');
     if(!data.checkout_url)throw new Error('Checkout provider is not configured yet');
@@ -1359,6 +1369,7 @@ async function startCheckout(plan){
 async function refreshCheckoutEntitlement(){
   try{
     var subject=checkoutSubject();
+    if(!subject)return false;
     var res=await fetch(CHECKOUT_API+'/entitlements/check?app_id=quotes&subject='+encodeURIComponent(subject));
     var data=await res.json();
     if(!res.ok||!data.active)return false;
@@ -1452,7 +1463,7 @@ document.getElementById('f-dt').value=new Date().toISOString().split('T')[0];
 addItem();
 
 var urlP=new URLSearchParams(location.search);
-if(P){resumeCheckout();}
+if(P||checkoutSubject()){resumeCheckout();}
 var openType=urlP.get('open');
 if(openType&&P)setTimeout(function(){openCreate(openType);},300);
 var upgradePlan=urlP.get('upgrade');
